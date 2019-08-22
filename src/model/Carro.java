@@ -12,10 +12,12 @@ package model;
 public class Carro {
     private int linha;
     private int coluna;
+    private int itemPosicao;
 
-    public Carro(int linha, int coluna) {
+    public Carro(int linha, int coluna, int itemPosicao) {
         this.linha = linha;
         this.coluna = coluna;
+        this.itemPosicao=itemPosicao;
     }
     
 
@@ -35,6 +37,14 @@ public class Carro {
 
     public void setColuna(int coluna) {
         this.coluna = coluna;
+    }
+
+    public int getItemPosicao() {
+        return itemPosicao;
+    }
+
+    public void setItemPosicao(int itemPosicao) {
+        this.itemPosicao = itemPosicao;
     }
    
     

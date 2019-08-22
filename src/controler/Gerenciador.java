@@ -8,6 +8,7 @@ package controler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import jdk.nashorn.internal.ir.BreakNode;
 import model.Carro;
 import model.Matriz;
 
@@ -56,7 +57,7 @@ public class Gerenciador {
             }
         }
         int colunaNascer = rand.nextInt(posicoes.size());
-        Carro carro = new Carro(matriz.getLinha() - 1, posicoes.get(colunaNascer));
+        Carro carro = new Carro(matriz.getLinha() - 1, posicoes.get(colunaNascer), matriz.getValorMatriz(matriz.getLinha() - 1,posicoes.get(colunaNascer)));
         carros.add(carro);
     }
 
@@ -68,7 +69,7 @@ public class Gerenciador {
             }
         }
         int colunaNascer = rand.nextInt(posicoes.size());
-        Carro carro = new Carro(posicoes.get(colunaNascer), 0);
+        Carro carro = new Carro(posicoes.get(colunaNascer), 0,matriz.getValorMatriz(posicoes.get(colunaNascer),0));
         carros.add(carro);
     }
 
@@ -80,7 +81,7 @@ public class Gerenciador {
             }
         }
         int colunaNascer = rand.nextInt(posicoes.size());
-        Carro carro = new Carro(0, posicoes.get(colunaNascer));
+        Carro carro = new Carro(0, posicoes.get(colunaNascer),matriz.getValorMatriz(0,posicoes.get(colunaNascer)));
         carros.add(carro);
     }
 
@@ -92,7 +93,7 @@ public class Gerenciador {
             }
         }
         int colunaNascer = rand.nextInt(posicoes.size());
-        Carro carro = new Carro(posicoes.get(colunaNascer), matriz.getColuna() - 1);
+        Carro carro = new Carro(posicoes.get(colunaNascer), matriz.getColuna() - 1,matriz.getValorMatriz(posicoes.get(colunaNascer),matriz.getColuna()-1));
         carros.add(carro);
     }
 
@@ -108,9 +109,7 @@ public class Gerenciador {
     }
 
     public Carro dirigir(Carro carro) {
-        int linhaCarro = carro.getLinha();
-        int colunaCarro = carro.getColuna();
-        int itemMatriz = matriz.getValorMatriz(linhaCarro, colunaCarro);
+        int itemMatriz = carro.getItemPosicao();
         switch (itemMatriz) {
             case 1:
                 andar(carro,carro.getLinha()-1,carro.getColuna());
@@ -123,6 +122,7 @@ public class Gerenciador {
                 break;
             case 4:
                 andar(carro,carro.getLinha(),carro.getColuna()-1);
+                break;
             case 5:
             case 6:
             case 7:
@@ -132,6 +132,27 @@ public class Gerenciador {
             case 11:
             case 12:
         }
+        return carro;
+    }
+    private int proxItemMatriz(Carro carro){
+        int proxItem = 0;
+        switch(carro.getItemPosicao()){
+            case 1:
+                proxItem = matriz.getValorMatriz(carro.getColuna(), carro.getLinha()-1);
+                break;
+            case 2:
+                proxItem = matriz.getValorMatriz(carro.getColuna()+1, carro.getLinha());
+                break;
+            case 3:
+                proxItem = matriz.getValorMatriz(carro.getLinha()+1,carro.getColuna());
+                break;
+            case 4:
+                proxItem = matriz.getValorMatriz(carro.getLinha(),carro.getColuna()-1);
+                break;
+            case 5:
+//                proxItem = matriz.getValorMatriz(carro.getLinha(), proxItem)
+        }
+        return proxItem;
     }
 
 }
