@@ -13,21 +13,15 @@ public class Estrada {
     private int linha;
     private int coluna;
     private int item;
-    private boolean estaOcuoado;
+    private boolean ehCruzamento;
+    private Carro carro;
 
-    public Estrada(int linha, int coluna, int item) {
+    public Estrada(int linha, int coluna, int item, boolean ehCruzamento,Carro carro) {
         this.linha = linha;
         this.coluna = coluna;
         this.item = item;
-        this.estaOcuoado = false;
-    }
-
-    public boolean isEstaOcuoado() {
-        return estaOcuoado;
-    }
-
-    public void setEstaOcuoado(boolean estaOcuoado) {
-        this.estaOcuoado = estaOcuoado;
+        this.carro=carro;
+        this.ehCruzamento = ehCruzamento;
     }
 
     public int getLinha() {
@@ -41,10 +35,23 @@ public class Estrada {
     public int getItem() {
         return item;
     }
+    
+    public Carro retirarCarro(){
+        Carro aux=carro;
+        this.carro=null;
+        return aux;
+    }
+    public void addCarro(Carro carro){
+        this.carro = carro;
+    }
+    
+    public boolean estaOcupado(){
+        return carro!=null;
+    }
 
     @Override
     public String toString() {
-        return "L="+linha+"C="+coluna+"Oc="+estaOcuoado+"I="+item;
+        return "L="+linha+"C="+coluna+"Ca="+carro+"I="+item+"Cr="+ehCruzamento;
     }
     
     

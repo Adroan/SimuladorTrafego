@@ -27,11 +27,15 @@ public class Leitor {
         matriz.criarMatriz(linha, coluna);
         matriz.setLinha(linha);
         matriz.setColuna(coluna);
-        
+
         for (int i = 0; i < linha; i++) {
             for (int j = 0; j < coluna; j++) {
-                String valor = in.next().trim();
-                matriz.setValorMatriz(i, j, new Estrada(i,j,Integer.parseInt(valor)));
+                int valor = Integer.parseInt(in.next().trim());
+                if (valor == 5 || valor == 6 || valor == 7 || valor == 8 || valor == 9 || valor == 10 || valor == 11 || valor == 12) {
+                    matriz.setValorMatriz(i, j, new Estrada(i, j, valor, true));
+                } else {
+                    matriz.setValorMatriz(i, j, new Estrada(i, j, valor, false));
+                }
             }
         }
     }
