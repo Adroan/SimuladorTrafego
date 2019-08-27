@@ -42,12 +42,25 @@ public class Estrada {
         return aux;
     }
     public void addCarro(Carro carro){
+        carro.setColuna(this.coluna);
+        carro.setLinha(this.linha);
+        carro.setItemPosicao(this.item);
         this.carro = carro;
     }
+
+    public Carro getCarro() {
+        return carro;
+    }
+    
     
     public boolean estaOcupado(){
         return carro!=null;
     }
+
+    public boolean isEhCruzamento() {
+        return ehCruzamento;
+    }
+    
 
     @Override
     public String toString() {
