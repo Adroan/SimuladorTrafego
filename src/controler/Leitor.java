@@ -8,6 +8,7 @@ package controler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import model.Estrada;
 import model.Matriz;
 
 /**
@@ -16,28 +17,31 @@ import model.Matriz;
  */
 public class Leitor {
 
-    public Matriz lerMatriz(File arquivo) throws FileNotFoundException {
+    public void lerMatriz(File arquivo) throws FileNotFoundException {
         Scanner in = new Scanner(arquivo);
 
         int linha = Integer.parseInt(in.next().trim());
         int coluna = Integer.parseInt(in.next().trim());
         System.out.println("Linha: " + linha + " Coluna: " + coluna);
-        int[][] matriz = new int[linha][coluna];
+        Matriz matriz = Matriz.getInstance();
+        matriz.criarMatriz(linha, coluna);
+        matriz.setLinha(linha);
+        matriz.setColuna(coluna);
+        
         for (int i = 0; i < linha; i++) {
             for (int j = 0; j < coluna; j++) {
                 String valor = in.next().trim();
-                matriz[i][j] = Integer.parseInt(valor);
+                matriz.setValorMatriz(i, j, new Estrada(i,j,Integer.parseInt(valor)));
             }
         }
-        Matriz obj = new Matriz(linha, coluna, matriz);
-        return obj;
     }
 
-    public void imprimirMatriz(Matriz matriz) {
+    public void imprimirMatriz() {
         System.out.println("imprimindo.....");
+        Matriz matriz = Matriz.getInstance();
         for (int i = 0; i < matriz.getLinha(); i++) {
             for (int j = 0; j < matriz.getColuna(); j++) {
-                System.out.printf(matriz.getValorMatriz(i, j) + "\t");
+                System.out.printf(matriz.getValorMatriz(i, j).toString() + "\t");
             }
             System.out.println("");
         }

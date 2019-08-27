@@ -19,14 +19,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         Leitor ler = new Leitor();
         File arquivo = new File("src/malha-exemplo-2.txt");
-        Matriz matriz = ler.lerMatriz(arquivo);
-        ler.imprimirMatriz(matriz);
-        Gerenciador gerenciador = new Gerenciador(matriz);
-        for (int i = 0; i < 250; i++) {
-            gerenciador.nascer();
-        }
-        
-        gerenciador.imprimirCarros();
-        System.out.println("Fim");
+        ler.lerMatriz(arquivo);
+        ler.imprimirMatriz();
     }
 }

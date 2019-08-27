@@ -12,33 +12,21 @@ package model;
 public class Matriz {
     private int linha;
     private int coluna;
-    private int[][] matriz;
+    private Estrada[][] matriz;
     
-
-    public Matriz(int linha, int coluna) {
-        this.linha = linha;
-        this.coluna = coluna;
-        this.matriz = new int[linha][coluna];
+    private Matriz(){};
+    
+    private static Matriz instance;
+    
+    public synchronized static Matriz getInstance(){
+        if(instance==null)
+            instance = new Matriz();
+        
+        return instance;
     }
 
-    public Matriz(int[][] matriz) {
-        this.matriz = matriz;
-    }
-
-    public Matriz(int linha, int coluna, int[][] matriz) {
-        this.linha = linha;
-        this.coluna = coluna;
-        this.matriz = matriz;
-    }
-    
-    
-
-    public int[][] getMatriz() {
+    public Estrada[][] getMatriz() {
         return matriz;
-    }
-
-    public void setMatriz(int[][] matriz) {
-        this.matriz = matriz;
     }
 
     public int getLinha() {
@@ -48,10 +36,25 @@ public class Matriz {
     public int getColuna() {
         return coluna;
     }
-    public int getValorMatriz(int linha, int coluna){
+
+    public void setLinha(int linha) {
+        this.linha = linha;
+    }
+
+    public void setColuna(int coluna) {
+        this.coluna = coluna;
+    }
+    
+    public Estrada getValorMatriz(int linha, int coluna){
         return matriz[linha][coluna];
     }
     
+    public void setValorMatriz(int linha, int coluna, Estrada estrada){
+        this.matriz[linha][coluna]=estrada;
+    }
     
+    public void criarMatriz(int linha, int coluna){
+        this.matriz = new Estrada[linha][coluna];
+    }
     
 }

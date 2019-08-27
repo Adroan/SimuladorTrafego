@@ -13,11 +13,13 @@ public class Carro {
     private int linha;
     private int coluna;
     private int itemPosicao;
+    private double velocidade;
 
-    public Carro(int linha, int coluna, int itemPosicao) {
+    public Carro(int linha, int coluna, int itemPosicao, double velocidade) {
         this.linha = linha;
         this.coluna = coluna;
         this.itemPosicao=itemPosicao;
+        this.velocidade = velocidade;
     }
     
 
@@ -45,6 +47,10 @@ public class Carro {
 
     public void setItemPosicao(int itemPosicao) {
         this.itemPosicao = itemPosicao;
+    }
+
+    public double getVelocidade() {
+        return velocidade;
     }
    
     
