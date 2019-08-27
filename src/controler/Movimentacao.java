@@ -20,9 +20,13 @@ public class Movimentacao {
     }
 
     public void andarCima(Carro carro) {
+//      Verificação redundante para checar se vai mesmo subir
         if (carro.getItemPosicao() == 1) {
+//            verifica se a próxima estrada esta ocupada
             if (matriz.getValorMatriz(carro.getLinha() - 1, carro.getColuna()).estaOcupado() == false) {
+//                verifica se não é um cruzamento
                 if (matriz.getValorMatriz(carro.getLinha() - 1, carro.getColuna()).isEhCruzamento() == false) {
+//                    verifica se não chegou ao final da rua
                     if (matriz.getValorMatriz(carro.getLinha() - 1, carro.getColuna()).getLinha() >= 0) {
                         matriz.getValorMatriz(carro.getLinha() - 1, carro.getColuna()).addCarro(matriz.getValorMatriz(carro.getLinha(), carro.getColuna()).retirarCarro());
                         andarCima(matriz.getValorMatriz(carro.getLinha() - 1, carro.getColuna()).getCarro());
