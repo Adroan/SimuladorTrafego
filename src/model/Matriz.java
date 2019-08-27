@@ -12,7 +12,7 @@ package model;
 public class Matriz {
     private int linha;
     private int coluna;
-    private Caminho[][] matriz;
+    private Estrada[][] matriz;
     
     private Matriz(){};
     
@@ -25,7 +25,7 @@ public class Matriz {
         return instance;
     }
 
-    public Caminho[][] getMatriz() {
+    public Estrada[][] getMatriz() {
         return matriz;
     }
 
@@ -45,7 +45,7 @@ public class Matriz {
         this.coluna = coluna;
     }
     
-    public Caminho getValorMatriz(int linha, int coluna){
+    public Estrada getValorMatriz(int linha, int coluna){
         return matriz[linha][coluna];
     }
     

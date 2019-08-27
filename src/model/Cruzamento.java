@@ -12,39 +12,23 @@ import java.util.Queue;
  *
  * @author Adroan
  */
-public class Cruzamento implements Caminho{
+public class Cruzamento extends Estrada {
+
     private Queue<Carro> filaCruzamento = new LinkedList<>();
-    private Estrada[] estradas = new Estrada[4];
-    public Cruzamento() {
+
+    public Cruzamento(int linha, int coluna, int item, Carro carro) {
+        super(linha, coluna, item, carro);
     }
-    
-    public void addCarro(Carro carro){
+
+    public void addCarro(Carro carro) {
         this.filaCruzamento.add(carro);
     }
-    
-    public Carro entrarCruzamento(){
+
+    public Carro entrarCruzamento() {
         return this.filaCruzamento.poll();
     }
-    
-    public Carro verProximo(){
+
+    public Carro verProximo() {
         return this.filaCruzamento.peek();
-    }
-    
-    public Estrada getEstradaCruzamento(int index){
-        return estradas[index];
-    }
-    
-    public void setEstradaCruzamento(int index, Estrada estrada){
-        this.estradas[index]=estrada;
-    }
-
-    @Override
-    public int getItem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Carro getCarro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

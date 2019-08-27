@@ -9,19 +9,17 @@ package model;
  *
  * @author Adroan
  */
-public class Estrada implements Caminho{
+public class Estrada{
     private int linha;
     private int coluna;
     private int item;
-    private boolean ehCruzamento;
     private Carro carro;
 
-    public Estrada(int linha, int coluna, int item, boolean ehCruzamento,Carro carro) {
+    public Estrada(int linha, int coluna, int item, Carro carro) {
         this.linha = linha;
         this.coluna = coluna;
         this.item = item;
         this.carro=carro;
-        this.ehCruzamento = ehCruzamento;
     }
 
     public int getLinha() {
@@ -57,14 +55,11 @@ public class Estrada implements Caminho{
         return carro!=null;
     }
 
-    public boolean isEhCruzamento() {
-        return ehCruzamento;
-    }
-    
+   
 
     @Override
     public String toString() {
-        return "L="+linha+"C="+coluna+"Ca="+carro+"I="+item+"Cr="+ehCruzamento;
+        return "L="+linha+"C="+coluna+"Ca="+carro+"I="+item;
     }
     
     
