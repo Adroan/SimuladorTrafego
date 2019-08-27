@@ -51,4 +51,13 @@ public class Leitor {
         }
         System.out.println("impresso!");
     }
+    
+    private void gerarCruzamentos(){
+        Matriz matriz = Matriz.getInstance();
+        for (int i = 0; i < matriz.getLinha(); i++) {
+            for (int j = 0; j < matriz.getColuna(); j++) {
+                if
+            }
+        }
+    }
 }

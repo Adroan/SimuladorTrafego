@@ -9,7 +9,7 @@ package model;
  *
  * @author Adroan
  */
-public class Estrada {
+public class Estrada implements Caminho{
     private int linha;
     private int coluna;
     private int item;

@@ -5,6 +5,9 @@
  */
 package controler;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import model.Carro;
 import model.Matriz;
 
@@ -18,6 +21,7 @@ public class GerenciadorCarros implements Buffer {
     private int quantidade = 0;
     private int inicio = 0;
     private int fim = 0;
+    private Random rand = new Random();
 
     public GerenciadorCarros(int capacidade) {
         this.carros = new Carro[capacidade];
@@ -56,8 +60,87 @@ public class GerenciadorCarros implements Buffer {
        return carro;
     }
     
-    public void spawn(){
+    public void spawn() throws Exception{
         
+        int orientacao = rand.nextInt(4);
+//        int orientacao =  4;
+        switch (orientacao) {
+            case 0:
+//                System.out.println("sul");
+                nascerSul();
+                break;
+            case 1:
+//                System.out.println("oeste");
+                nascerOeste();
+                break;
+            case 2:
+//                System.out.println("norte");
+                nascerNorte();
+                break;
+            case 3:
+//                System.out.println("leste");
+                nascerLeste();
+                break;
+        }
     }
 
+//
+    private void nascerSul() throws Exception {
+        List<Integer> posicoes = new ArrayList<>();
+        for (int i = 0; i < matriz.getColuna(); i++) {
+            if (matriz.getValorMatriz(matriz.getLinha() - 1, i).getItem() == 1) {
+                posicoes.add(i);
+            }
+        }
+        int colunaNascer = rand.nextInt(posicoes.size());
+        
+        Carro carro =new Carro(0,0,0,geradorVelocidade());
+        matriz.getValorMatriz(matriz.getLinha()-1, posicoes.get(colunaNascer)).addCarro(carro);
+        addCarro(matriz.getValorMatriz(matriz.getLinha()-1, posicoes.get(colunaNascer)).getCarro());
+    }
+
+    private void nascerOeste() throws Exception {
+        List<Integer> posicoes = new ArrayList<>();
+        for (int i = 0; i < matriz.getLinha(); i++) {
+            if (matriz.getValorMatriz(i, 0).getItem() == 2) {
+                posicoes.add(i);
+            }
+        }
+        int linhaNascer = rand.nextInt(posicoes.size());
+        Carro carro =new Carro(0,0,0,geradorVelocidade());
+        matriz.getValorMatriz(posicoes.get(linhaNascer), 0).addCarro(carro);
+        addCarro(matriz.getValorMatriz(posicoes.get(linhaNascer), 0).getCarro());
+    }
+
+    private void nascerNorte() throws Exception {
+        List<Integer> posicoes = new ArrayList<>();
+        for (int i = 0; i < matriz.getColuna(); i++) {
+            if (matriz.getValorMatriz(0, i).getItem() == 3) {
+                posicoes.add(i);
+            }
+        }
+        int colunaNascer = rand.nextInt(posicoes.size());
+        
+        Carro carro =new Carro(0,0,0,geradorVelocidade());
+        matriz.getValorMatriz(0, posicoes.get(colunaNascer)).addCarro(carro);
+        addCarro(matriz.getValorMatriz(0, posicoes.get(colunaNascer)).getCarro());
+    }
+
+    private void nascerLeste() throws Exception {
+        List<Integer> posicoes = new ArrayList<>();
+        for (int i = 0; i < matriz.getLinha(); i++) {
+            if (matriz.getValorMatriz(i, matriz.getColuna() - 1).getItem() == 4) {
+                posicoes.add(i);
+            }
+        }
+        int linhaNascer = rand.nextInt(posicoes.size());
+        Carro carro =new Carro(0,0,0,geradorVelocidade());
+        matriz.getValorMatriz(posicoes.get(linhaNascer), matriz.getColuna()-1).addCarro(carro);
+        addCarro(matriz.getValorMatriz(posicoes.get(linhaNascer), 0).getCarro());
+        
+    }
+    
+    private double geradorVelocidade(){
+        return 250 +(rand.nextDouble()*(3000-250));
+    }
 }
