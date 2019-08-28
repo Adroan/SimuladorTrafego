@@ -26,12 +26,14 @@ public class Movimentacao {
 //            verifica se a próxima estrada esta ocupada
             if (matriz.getValorMatriz(carro.getLinha() - 1, carro.getColuna()).estaOcupado() == false) {
 //                verifica se não é um cruzamento
-                if (matriz.getValorMatriz(carro.getLinha() - 1, carro.getColuna()).getClass() == Cruzamento.class) {
+                if (matriz.getValorMatriz(carro.getLinha() - 1, carro.getColuna()).isEhCruzamento()==false) {
 //                    verifica se não chegou ao final da rua
                     if (matriz.getValorMatriz(carro.getLinha() - 1, carro.getColuna()).getLinha() >= 0) {
-                        matriz.getValorMatriz(carro.getLinha() - 1, carro.getColuna()).addCarro(matriz.getValorMatriz(carro.getLinha(), carro.getColuna()).retirarCarro());
+                        matriz.getValorMatriz(carro.getLinha() - 1, carro.getColuna()).addCarroEstrada(matriz.getValorMatriz(carro.getLinha(), carro.getColuna()).retirarCarroEstrada());
                         andarCima(matriz.getValorMatriz(carro.getLinha() - 1, carro.getColuna()).getCarro());
                     }
+                }else if(matriz.getValorMatriz(carro.getLinha() - 1, carro.getColuna()).isEhCruzamento()==true){
+                    
                 }
             }
         }
@@ -40,9 +42,9 @@ public class Movimentacao {
     public void andarBaixo(Carro carro) {
         if (carro.getItemPosicao() == 3) {
             if (matriz.getValorMatriz(carro.getLinha() + 1, carro.getColuna()).estaOcupado() == false) {
-                if (matriz.getValorMatriz(carro.getLinha() + 1, carro.getColuna()).getClass() == Cruzamento.class) {
+                if (matriz.getValorMatriz(carro.getLinha() + 1, carro.getColuna()).isEhCruzamento()==false) {
                     if (matriz.getValorMatriz(carro.getLinha() + 1, carro.getColuna()).getLinha() < matriz.getLinha()) {
-                        matriz.getValorMatriz(carro.getLinha() + 1, carro.getColuna()).addCarro(matriz.getValorMatriz(carro.getLinha(), carro.getColuna()).retirarCarro());
+                        matriz.getValorMatriz(carro.getLinha() + 1, carro.getColuna()).addCarroEstrada(matriz.getValorMatriz(carro.getLinha(), carro.getColuna()).retirarCarroEstrada());
                         andarBaixo(matriz.getValorMatriz(carro.getLinha() + 1, carro.getColuna()).getCarro());
                     }
                 }
@@ -53,9 +55,9 @@ public class Movimentacao {
     public void andarDireita(Carro carro) {
         if (carro.getItemPosicao() == 2) {
             if (matriz.getValorMatriz(carro.getLinha(), carro.getColuna() + 1).estaOcupado() == false) {
-                if (matriz.getValorMatriz(carro.getLinha(), carro.getColuna() + 1).getClass() == Cruzamento.class) {
+                if (matriz.getValorMatriz(carro.getLinha(), carro.getColuna() + 1).isEhCruzamento()==false) {
                     if (matriz.getValorMatriz(carro.getLinha(), carro.getColuna() + 1).getLinha() < matriz.getColuna()) {
-                        matriz.getValorMatriz(carro.getLinha(), carro.getColuna() + 1).addCarro(matriz.getValorMatriz(carro.getLinha(), carro.getColuna()).retirarCarro());
+                        matriz.getValorMatriz(carro.getLinha(), carro.getColuna() + 1).addCarroEstrada(matriz.getValorMatriz(carro.getLinha(), carro.getColuna()).retirarCarroEstrada());
                         andarDireita(matriz.getValorMatriz(carro.getLinha(), carro.getColuna() + 1).getCarro());
                     }
                 }
@@ -66,9 +68,9 @@ public class Movimentacao {
     public void andarEsquerda(Carro carro) {
         if (carro.getItemPosicao() == 4) {
             if (matriz.getValorMatriz(carro.getLinha(), carro.getColuna() - 1).estaOcupado() == false) {
-                if (matriz.getValorMatriz(carro.getLinha(), carro.getColuna() - 1).getClass() == Cruzamento.class) {
+                if (matriz.getValorMatriz(carro.getLinha(), carro.getColuna() - 1).isEhCruzamento()==false) {
                     if (matriz.getValorMatriz(carro.getLinha(), carro.getColuna() - 1).getLinha() >= 0) {
-                        matriz.getValorMatriz(carro.getLinha(), carro.getColuna() - 1).addCarro(matriz.getValorMatriz(carro.getLinha(), carro.getColuna()).retirarCarro());
+                        matriz.getValorMatriz(carro.getLinha(), carro.getColuna() - 1).addCarroEstrada(matriz.getValorMatriz(carro.getLinha(), carro.getColuna()).retirarCarroEstrada());
                         andarEsquerda(matriz.getValorMatriz(carro.getLinha(), carro.getColuna() - 1).getCarro());
                     }
                 }

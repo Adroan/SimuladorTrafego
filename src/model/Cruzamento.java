@@ -16,18 +16,32 @@ public class Cruzamento extends Estrada {
 
     private Queue<Carro> filaCruzamento = new LinkedList<>();
 
-    public Cruzamento(int linha, int coluna, int item, Carro carro) {
-        super(linha, coluna, item, carro);
+    public Cruzamento(int linha, int coluna, int item, Carro carro, boolean ehCruzamento) {
+        super(linha, coluna, item, carro, ehCruzamento);
     }
 
+
+
+    /**
+     *Adiciona o carro a fila do cruzamento
+     * @param carro
+     */
     public void addCarro(Carro carro) {
         this.filaCruzamento.add(carro);
     }
-
+    
+    /**
+     * retira o carro da fila e manda para dentro do cruzamento
+     * @return
+     */
     public Carro entrarCruzamento() {
         return this.filaCruzamento.poll();
     }
 
+    /**
+     * somente ve quem é o próximo carro
+     * @return
+     */
     public Carro verProximo() {
         return this.filaCruzamento.peek();
     }

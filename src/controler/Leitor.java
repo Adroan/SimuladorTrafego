@@ -33,9 +33,9 @@ public class Leitor {
             for (int j = 0; j < coluna; j++) {
                 int valor = Integer.parseInt(in.next().trim());
                 if (valor == 5 || valor == 6 || valor == 7 || valor == 8 || valor == 9 || valor == 10 || valor == 11 || valor == 12) {
-                    matriz.setValorMatriz(i, j, new Cruzamento(i, j, valor,null));
+                    matriz.setValorMatriz(i, j, new Cruzamento(i, j, valor,null,true));
                 } else {
-                    matriz.setValorMatriz(i, j, new Estrada(i, j, valor,null));
+                    matriz.setValorMatriz(i, j, new Estrada(i, j, valor,null,false));
                 }
             }
         }

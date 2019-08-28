@@ -13,13 +13,15 @@ public class Estrada{
     private int linha;
     private int coluna;
     private int item;
+    private boolean ehCruzamento;
     private Carro carro;
 
-    public Estrada(int linha, int coluna, int item, Carro carro) {
+    public Estrada(int linha, int coluna, int item, Carro carro, boolean ehCruzamento) {
         this.linha = linha;
         this.coluna = coluna;
         this.item = item;
         this.carro=carro;
+        this.ehCruzamento = ehCruzamento;
     }
 
     public int getLinha() {
@@ -34,12 +36,12 @@ public class Estrada{
         return item;
     }
     
-    public Carro retirarCarro(){
+    public Carro retirarCarroEstrada(){
         Carro aux=carro;
         this.carro=null;
         return aux;
     }
-    public void addCarro(Carro carro){
+    public void addCarroEstrada(Carro carro){
         carro.setColuna(this.coluna);
         carro.setLinha(this.linha);
         carro.setItemPosicao(this.item);
@@ -53,6 +55,14 @@ public class Estrada{
     
     public boolean estaOcupado(){
         return carro!=null;
+    }
+
+    public boolean isEhCruzamento() {
+        return ehCruzamento;
+    }
+
+    public void setEhCruzamento(boolean ehCruzamento) {
+        this.ehCruzamento = ehCruzamento;
     }
 
    

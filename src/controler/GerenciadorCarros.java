@@ -95,7 +95,7 @@ public class GerenciadorCarros implements Buffer {
         int colunaNascer = rand.nextInt(posicoes.size());
         
         Carro carro =new Carro(0,0,0,geradorVelocidade());
-        matriz.getValorMatriz(matriz.getLinha()-1, posicoes.get(colunaNascer)).addCarro(carro);
+        matriz.getValorMatriz(matriz.getLinha()-1, posicoes.get(colunaNascer)).addCarroEstrada(carro);
         addCarro(matriz.getValorMatriz(matriz.getLinha()-1, posicoes.get(colunaNascer)).getCarro());
     }
 
@@ -108,7 +108,7 @@ public class GerenciadorCarros implements Buffer {
         }
         int linhaNascer = rand.nextInt(posicoes.size());
         Carro carro =new Carro(0,0,0,geradorVelocidade());
-        matriz.getValorMatriz(posicoes.get(linhaNascer), 0).addCarro(carro);
+        matriz.getValorMatriz(posicoes.get(linhaNascer), 0).addCarroEstrada(carro);
         addCarro(matriz.getValorMatriz(posicoes.get(linhaNascer), 0).getCarro());
     }
 
@@ -122,7 +122,7 @@ public class GerenciadorCarros implements Buffer {
         int colunaNascer = rand.nextInt(posicoes.size());
         
         Carro carro =new Carro(0,0,0,geradorVelocidade());
-        matriz.getValorMatriz(0, posicoes.get(colunaNascer)).addCarro(carro);
+        matriz.getValorMatriz(0, posicoes.get(colunaNascer)).addCarroEstrada(carro);
         addCarro(matriz.getValorMatriz(0, posicoes.get(colunaNascer)).getCarro());
     }
 
@@ -135,7 +135,7 @@ public class GerenciadorCarros implements Buffer {
         }
         int linhaNascer = rand.nextInt(posicoes.size());
         Carro carro =new Carro(0,0,0,geradorVelocidade());
-        matriz.getValorMatriz(posicoes.get(linhaNascer), matriz.getColuna()-1).addCarro(carro);
+        matriz.getValorMatriz(posicoes.get(linhaNascer), matriz.getColuna()-1).addCarroEstrada(carro);
         addCarro(matriz.getValorMatriz(posicoes.get(linhaNascer), 0).getCarro());
         
     }
