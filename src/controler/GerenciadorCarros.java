@@ -8,6 +8,7 @@ package controler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Semaphore;
 import model.Carro;
 import model.Matriz;
 
@@ -22,14 +23,23 @@ public class GerenciadorCarros implements Buffer {
     private int inicio = 0;
     private int fim = 0;
     private Random rand = new Random();
+    
+    private Semaphore mutex;
+    private Semaphore cheio;
+    private Semaphore livre;
 
     public GerenciadorCarros(int capacidade) {
         this.carros = new Carro[capacidade];
+        cheio=new Semaphore(0);
+        livre = new Semaphore(capacidade);
+        mutex = new Semaphore(1);
     }
 
     @Override
     public void addCarro(Carro carro) throws Exception {
         try {
+            livre.acquire();
+            mutex.acquire();
             if (quantidade == carros.length) {
                 throw new Exception("Buffer cheio");
             }
@@ -40,6 +50,9 @@ public class GerenciadorCarros implements Buffer {
         } catch (InterruptedException e) {
             System.out.println("interrompido");
             e.printStackTrace();
+        }finally{
+            mutex.release();
+            cheio.release();
         }
     }
 
@@ -47,6 +60,9 @@ public class GerenciadorCarros implements Buffer {
     public Carro removerCarro() throws Exception {
        Carro carro = null;
        try{
+           
+           cheio.acquire();
+           mutex.acquire();
            if(quantidade == 0){
                throw new Exception("Buffer vazio");
            }
@@ -56,8 +72,12 @@ public class GerenciadorCarros implements Buffer {
            quantidade--;
        }catch(InterruptedException e){
            System.out.println("interrompido");
-       }
-       return carro;
+           e.printStackTrace();
+           return null;
+       }finally{
+           mutex.release();
+           livre.release();''
+       }      return carro;
     }
     
     public void spawn() throws Exception{

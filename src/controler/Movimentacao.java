@@ -6,7 +6,6 @@
 package controler;
 
 import model.Carro;
-import model.Cruzamento;
 import model.Matriz;
 
 /**

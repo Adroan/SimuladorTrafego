@@ -18,7 +18,7 @@ import model.Matriz;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         Leitor ler = new Leitor();
-        File arquivo = new File("src/malha-exemplo-2.txt");
+        File arquivo = new File("src/malha-exemplo-1.txt");
         ler.lerMatriz(arquivo);
         ler.imprimirMatriz();
     }

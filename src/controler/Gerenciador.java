@@ -5,12 +5,7 @@
  */
 package controler;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import jdk.nashorn.internal.ir.BreakNode;
-import model.Carro;
-import model.Matriz;
+
 
 /**
  *

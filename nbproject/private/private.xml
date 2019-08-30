@@ -3,16 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/ADSK/projectnetbeans/SimuladorTrafego/src/model/Carro.java</file>
-            <file>file:/D:/ADSK/projectnetbeans/SimuladorTrafego/src/controler/GerenciadorCruzamento.java</file>
-            <file>file:/D:/ADSK/projectnetbeans/SimuladorTrafego/src/controler/Gerenciador.java</file>
             <file>file:/D:/ADSK/projectnetbeans/SimuladorTrafego/src/controler/Leitor.java</file>
-            <file>file:/D:/ADSK/projectnetbeans/SimuladorTrafego/src/controler/Movimentacao.java</file>
+            <file>file:/D:/ADSK/projectnetbeans/SimuladorTrafego/src/controler/Gerenciador.java</file>
             <file>file:/D:/ADSK/projectnetbeans/SimuladorTrafego/src/model/Estrada.java</file>
-            <file>file:/D:/ADSK/projectnetbeans/SimuladorTrafego/src/model/Cruzamento.java</file>
-            <file>file:/D:/ADSK/projectnetbeans/SimuladorTrafego/src/view/Main.java</file>
-            <file>file:/D:/ADSK/projectnetbeans/SimuladorTrafego/src/controler/Buffer.java</file>
-            <file>file:/D:/ADSK/projectnetbeans/SimuladorTrafego/src/model/Matriz.java</file>
+            <file>file:/D:/ADSK/projectnetbeans/SimuladorTrafego/src/controler/Movimentacao.java</file>
             <file>file:/D:/ADSK/projectnetbeans/SimuladorTrafego/src/controler/GerenciadorCarros.java</file>
         </group>
     </open-files>
