@@ -9,9 +9,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.MouseEvent;
+import java.awt.GridLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,7 +22,6 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -35,21 +37,30 @@ public class SimuladorTrafego extends JFrame{
     //JLabel
     private JLabel qtdCarros;
     private JLabel intervaloInsercao;
+    private JLabel modo; 
+    private JLabel quantidadeCarrosRodando;
+    private JLabel tempoDeExecucao;
     
     //JTextField
     private JTextField jtfQtdCarros;
     private JTextField jtfIntervaloInsercao;
+    private JTextField jtfQuantidadeCarrosRodando;
+    private JTextField jtfTempoDeExecucao;
     
     
     //JButton
     private JButton jbIniciar,jbEncerrar;
+    private JRadioButton jrbSemaforo,jrbMonitor;
+    private ButtonGroup bgOpcoes;
+
     
     //Layouts
     private GridBagLayout layout;
+    private GridLayout gridLayout;
     private GridBagConstraints constraints;
     
     //Panel
-    private JPanel panelPrincipal,panelOpcoes;
+    private JPanel panelPrincipal,panelOpcoes,panelEsquerda,panelDireita;
     private JTable estrada;
 
     public SimuladorTrafego() {
@@ -80,56 +91,61 @@ public class SimuladorTrafego extends JFrame{
         //Inicia os componentes de layout
         constraints = new GridBagConstraints();
         layout = new GridBagLayout();
+        gridLayout = new GridLayout(3, 3,10,10);
         
         //Inicia os panels do sistema
-        panelPrincipal = new JPanel(layout);
-        panelOpcoes = new JPanel(layout);
+        panelPrincipal = new JPanel();
+        panelOpcoes = new JPanel(gridLayout);
+        panelEsquerda = new JPanel();
+        panelDireita = new JPanel();
         
         //Inicia componentes de interface
+        
+        //JLabels
         qtdCarros = new JLabel("Quantidade de carros");
         intervaloInsercao = new JLabel("Intervalo de Insercao (ms): ");
+        modo = new JLabel("Selecione o modo: ");
+        quantidadeCarrosRodando = new JLabel("Carros rodando: ");
+        tempoDeExecucao = new JLabel("Tempo de execucao: ");
+        
+        //JTextFields
         jtfQtdCarros = new JTextField();
         jtfIntervaloInsercao = new JTextField();
+        jtfQuantidadeCarrosRodando = new JTextField();
+        jtfTempoDeExecucao = new JTextField();
+        
+        //Buttons
         jbIniciar = new JButton("Iniciar Simulacao");
         jbEncerrar = new JButton("Encerrar Simulacao");
+        jrbSemaforo = new JRadioButton("Semaforo", true);
+        jrbMonitor = new JRadioButton("Monitor", false);
+        bgOpcoes = new ButtonGroup();
+        bgOpcoes.add(jrbSemaforo);
+        bgOpcoes.add(jrbMonitor);
         
         //Adiciona os itens no painel de opcoes
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        panelOpcoes.add(qtdCarros, constraints);
+        panelOpcoes.add(qtdCarros);
+        panelOpcoes.add(jtfQtdCarros);
+        panelOpcoes.add(jbIniciar);
+        panelOpcoes.add(intervaloInsercao);
+        panelOpcoes.add(jtfIntervaloInsercao);
+        panelOpcoes.add(jbEncerrar);
+        panelOpcoes.add(modo);
+        panelOpcoes.add(jrbSemaforo);
+        panelOpcoes.add(jrbMonitor);
         
-        constraints.gridx = 1;
-        constraints.gridy = 0;
-        panelOpcoes.add(jtfQtdCarros, constraints);
-        
-        constraints.gridx = 2;
-        constraints.gridy = 0;
-        panelOpcoes.add(intervaloInsercao, constraints);
-        
-        constraints.gridx = 3;
-        constraints.gridy = 0;
-        panelOpcoes.add(jtfIntervaloInsercao, constraints);
-        
-        constraints.gridx = 1;
-        constraints.gridy = 2;
-        panelOpcoes.add(jbIniciar, constraints);
-        
-        constraints.gridx = 3;
-        constraints.gridy = 2;
-        panelOpcoes.add(jbEncerrar, constraints);
-        
-        add("North",panelOpcoes);
+        add(panelOpcoes,BorderLayout.NORTH);
         
         
         // criar o tabuleiro e seus componentes
         estrada = new JTable();
         estrada.setModel(new EstradaTableModel());
         for (int x = 0; x < estrada.getColumnModel().getColumnCount(); x++) {
-            estrada.getColumnModel().getColumn(x).setWidth(25);
-            estrada.getColumnModel().getColumn(x).setMinWidth(25);
-            estrada.getColumnModel().getColumn(x).setMaxWidth(25);
+            estrada.getColumnModel().getColumn(x).setWidth(23);
+            estrada.getColumnModel().getColumn(x).setMinWidth(23);
+            estrada.getColumnModel().getColumn(x).setMaxWidth(23);
         }
-        estrada.setRowHeight(25);
+        estrada.setRowHeight(23);
         estrada.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         estrada.setShowGrid(true);
         estrada.setGridColor(Color.red);
@@ -138,7 +154,17 @@ public class SimuladorTrafego extends JFrame{
 
 
         //Adiciona o tabuleiro no centro da tela
-        add("Center", estrada);
+        panelEsquerda.add(quantidadeCarrosRodando);
+        panelEsquerda.add(jtfQuantidadeCarrosRodando);
+        panelEsquerda.add(tempoDeExecucao);
+        panelEsquerda.add(jtfTempoDeExecucao);
+        panelEsquerda.setLayout(new GridLayout(4, 2, 10, 10));
+        panelPrincipal.setLayout(new FlowLayout(FlowLayout.CENTER));
+        panelPrincipal.add(estrada);
+        
+        //add(panelEsquerda,BorderLayout.WEST);
+        add(panelPrincipal,BorderLayout.CENTER);
+        //add(panelDireita,BorderLayout.EAST);
     }
     
     
