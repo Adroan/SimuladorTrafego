@@ -46,6 +46,7 @@ public class Gerenciador {
     
     
     
+    
 //    private List<Carro> carros = new ArrayList<>();
 //    private Random rand = new Random();
 //    private Matriz matriz;

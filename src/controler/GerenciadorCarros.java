@@ -76,7 +76,7 @@ public class GerenciadorCarros implements Buffer {
            return null;
        }finally{
            mutex.release();
-           livre.release();''
+           livre.release();
        }      return carro;
     }
     

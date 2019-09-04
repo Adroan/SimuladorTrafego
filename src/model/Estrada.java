@@ -5,23 +5,32 @@
  */
 package model;
 
+import java.util.concurrent.Semaphore;
+
 /**
  *
  * @author Adroan
  */
-public class Estrada{
+public class Estrada {
+
     private int linha;
     private int coluna;
     private int item;
     private boolean ehCruzamento;
     private Carro carro;
+    private Semaphore mutex;
+    private Semaphore ocupado;
+    private Semaphore livre;
 
     public Estrada(int linha, int coluna, int item, Carro carro, boolean ehCruzamento) {
         this.linha = linha;
         this.coluna = coluna;
         this.item = item;
-        this.carro=carro;
+        this.carro = carro;
         this.ehCruzamento = ehCruzamento;
+        mutex = new Semaphore(1);
+        livre = new Semaphore(1);
+        ocupado = new Semaphore(0);
     }
 
     public int getLinha() {
@@ -35,26 +44,51 @@ public class Estrada{
     public int getItem() {
         return item;
     }
-    
-    public Carro retirarCarroEstrada(){
-        Carro aux=carro;
-        this.carro=null;
+
+    public Carro retirarCarroEstrada() {
+        Carro aux = null;
+        try {
+            ocupado.acquire();
+            mutex.acquire();
+            aux = carro;
+            this.carro = null;
+
+        } catch (InterruptedException e) {
+            System.out.println("Semaforo mutex ou livre interrompidos, abortado");
+            e.printStackTrace();
+            return null;
+        } finally {
+            mutex.release();
+            livre.release();
+        }
         return aux;
+
     }
-    public void addCarroEstrada(Carro carro){
-        carro.setColuna(this.coluna);
-        carro.setLinha(this.linha);
-        carro.setItemPosicao(this.item);
-        this.carro = carro;
+
+    public void addCarroEstrada(Carro carro) {
+        try {
+            livre.acquire();
+            mutex.acquire();
+
+            carro.setColuna(this.coluna);
+            carro.setLinha(this.linha);
+            carro.setItemPosicao(this.item);
+            this.carro = carro;
+        } catch (InterruptedException e) {
+            System.out.println("Semaforo mutex ou livre interrompido, abortado");
+            e.printStackTrace();
+        } finally {
+            mutex.release();
+            ocupado.release();
+        }
     }
 
     public Carro getCarro() {
         return carro;
     }
-    
-    
-    public boolean estaOcupado(){
-        return carro!=null;
+
+    public boolean estaOcupado() {
+        return carro != null;
     }
 
     public boolean isEhCruzamento() {
@@ -65,12 +99,9 @@ public class Estrada{
         this.ehCruzamento = ehCruzamento;
     }
 
-   
-
     @Override
     public String toString() {
-        return "L="+linha+"C="+coluna+"Ca="+carro+"I="+item;
+        return "L=" + linha + "C=" + coluna + "Ca=" + carro + "I=" + item;
     }
-    
-    
+
 }
