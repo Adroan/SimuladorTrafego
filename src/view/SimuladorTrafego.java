@@ -13,6 +13,8 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 import javax.swing.ImageIcon;
@@ -32,7 +34,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author vinny
  */
-public class SimuladorTrafego extends JFrame{
+public class SimuladorTrafego extends JFrame implements ActionListener{
     
     //JLabel
     private JLabel qtdCarros;
@@ -117,6 +119,7 @@ public class SimuladorTrafego extends JFrame{
         //Buttons
         jbIniciar = new JButton("Iniciar Simulacao");
         jbEncerrar = new JButton("Encerrar Simulacao");
+        jbEncerrar.setEnabled(false);
         jrbSemaforo = new JRadioButton("Semaforo", true);
         jrbMonitor = new JRadioButton("Monitor", false);
         bgOpcoes = new ButtonGroup();
@@ -165,9 +168,62 @@ public class SimuladorTrafego extends JFrame{
         //add(panelEsquerda,BorderLayout.WEST);
         add(panelPrincipal,BorderLayout.CENTER);
         //add(panelDireita,BorderLayout.EAST);
+        
+        //Adicionando eventos
+        jbIniciar.addActionListener(this);
+        jbEncerrar.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == jbIniciar){
+            try{
+                int intervalo;
+                int qtdCarro = Integer.parseInt(jtfQtdCarros.getText());
+                if(qtdCarro <= 0){
+                    qtdCarro = qtdCarro / 0;
+                }
+                if(!jtfIntervaloInsercao.getText().equals("")){
+                    try{
+                        intervalo = Integer.parseInt(jtfIntervaloInsercao.getText());
+                        if(intervalo <= 0){
+                            intervalo = intervalo / 0;
+                        }
+                    }catch(Exception exe){
+                        JOptionPane.showMessageDialog(rootPane, "Intervalo inválido");
+                    }
+                    
+                }
+                iniciarSimulacao();
+                //Chamar método
+                
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(rootPane, "Quantidade de carros inválida");
+            }
+        }
+        if(e.getSource() == jbEncerrar){
+            encerrarSimulacao();
+        }
+        
     }
     
+    public void iniciarSimulacao() {
+        jbIniciar.setEnabled(false);
+        jbEncerrar.setEnabled(true);
+        jrbMonitor.setEnabled(false);
+        jrbSemaforo.setEnabled(false);
+        jtfQtdCarros.setEnabled(false);
+        jtfIntervaloInsercao.setEnabled(false);
+    }
     
+    public void encerrarSimulacao(){
+        jbIniciar.setEnabled(true);
+        jbEncerrar.setEnabled(false);
+        jrbMonitor.setEnabled(true);
+        jrbSemaforo.setEnabled(true);
+        jtfQtdCarros.setEnabled(true);
+        jtfIntervaloInsercao.setEnabled(true);
+    }
     
     class EstradaTableModel extends AbstractTableModel {
 
