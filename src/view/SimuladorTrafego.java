@@ -156,7 +156,7 @@ public class SimuladorTrafego extends JFrame implements ActionListener{
         estrada.setRowHeight(23);
         estrada.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         estrada.setShowGrid(false);
-        estrada.setIntercellSpacing(new Dimension(0, 0));
+        estrada.setIntercellSpacing(new Dimension(-1, 0));
         estrada.setDefaultRenderer(Object.class, new EstradaRenderer());
 
 
