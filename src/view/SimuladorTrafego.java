@@ -179,6 +179,7 @@ public class SimuladorTrafego extends JFrame implements ActionListener{
         if(e.getSource() == jbIniciar){
             try{
                 int intervalo;
+                boolean entrouCatch = false;
                 int qtdCarro = Integer.parseInt(jtfQtdCarros.getText());
                 if(qtdCarro <= 0){
                     qtdCarro = qtdCarro / 0;
@@ -191,10 +192,12 @@ public class SimuladorTrafego extends JFrame implements ActionListener{
                         }
                     }catch(Exception exe){
                         JOptionPane.showMessageDialog(rootPane, "Intervalo inválido");
+                        entrouCatch = true;
                     }
                     
                 }
-                iniciarSimulacao();
+                if(!entrouCatch)
+                    iniciarSimulacao();
                 //Chamar método
                 
             }catch(Exception ex){
