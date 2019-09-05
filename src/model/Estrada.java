@@ -51,6 +51,11 @@ public class Estrada {
     public ImageIcon getImagem() {
         return imagem;
     }
+
+    public void setImagem(ImageIcon imagem) {
+        this.imagem = imagem;
+    }
+    
     
     
 
