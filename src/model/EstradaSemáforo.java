@@ -7,6 +7,8 @@ package model;
 
 import java.io.File;
 import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -42,6 +44,7 @@ public class EstradaSemáforo implements Estrada  {
 
     public void addCarroEstrada(Carro carro) {
         try {
+            if(!estaOcupado()){
             livre.acquire();
             mutex.acquire();
             this.imagem = new ImageIcon("assets/" + carro.getNome()+imagemBase.replace("assets/", ""));
@@ -49,6 +52,7 @@ public class EstradaSemáforo implements Estrada  {
             carro.setLinha(this.linha);
             carro.setItemPosicao(this.item);
             this.carro = carro;
+            }
         } catch (InterruptedException e) {
             System.out.println("Semaforo mutex ou livre interrompido, abortado");
             e.printStackTrace();
@@ -117,6 +121,30 @@ public class EstradaSemáforo implements Estrada  {
     @Override
     public String toString() {
         return "L=" + linha + "C=" + coluna + "Ca=" + carro + "I=" + item;
+    }
+    
+    public void reservar(){
+        try {
+            livre.acquire();
+            mutex.acquire();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(EstradaSemáforo.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+        mutex.release();
+        ocupado.release();
+        }
+        
+    }
+    public void liberar(){
+        try{
+            ocupado.acquire();
+            mutex.acquire();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(EstradaSemáforo.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            mutex.release();
+            livre.release();
+        }
     }
 
 }

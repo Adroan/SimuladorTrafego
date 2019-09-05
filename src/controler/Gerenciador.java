@@ -99,7 +99,7 @@ public class Gerenciador {
         CriadorDeCarros cdc = new CriadorDeCarros(qtdCarros);
 
 
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < qtdCarros; i++){
             try {
                 cdc.spawn();
                 notificarEstradaAlterada();
