@@ -6,6 +6,7 @@
 package model;
 
 import java.util.concurrent.Semaphore;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -21,8 +22,9 @@ public class Estrada {
     private Semaphore mutex;
     private Semaphore ocupado;
     private Semaphore livre;
+    private ImageIcon imagem;
 
-    public Estrada(int linha, int coluna, int item, Carro carro, boolean ehCruzamento) {
+    public Estrada(int linha, int coluna, int item, Carro carro, boolean ehCruzamento, ImageIcon imagem) {
         this.linha = linha;
         this.coluna = coluna;
         this.item = item;
@@ -31,6 +33,7 @@ public class Estrada {
         mutex = new Semaphore(1);
         livre = new Semaphore(1);
         ocupado = new Semaphore(0);
+        this.imagem = imagem;
     }
 
     public int getLinha() {

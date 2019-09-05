@@ -8,6 +8,7 @@ package controler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
 import model.Estrada;
 import model.Matriz;
 
@@ -32,9 +33,11 @@ public class Leitor {
             for (int j = 0; j < coluna; j++) {
                 int valor = Integer.parseInt(in.next().trim());
                 if (valor == 5 || valor == 6 || valor == 7 || valor == 8 || valor == 9 || valor == 10 || valor == 11 || valor == 12) {
-                    matriz.setValorMatriz(i, j, new Estrada(i, j, valor,null,true));
-                } else {
-                    matriz.setValorMatriz(i, j, new Estrada(i, j, valor,null,false));
+                    matriz.setValorMatriz(i, j, new Estrada(i, j, valor,null,true,new ImageIcon("assets/cruzamento.png")));
+                } else if(valor!=0){
+                    matriz.setValorMatriz(i, j, new Estrada(i, j, valor,null,false,new ImageIcon("assets/estrada"+valor+".png")));
+                }else{
+                    matriz.setValorMatriz(i, j, new Estrada(i, j, valor,null,false,new ImageIcon("assets/grama.png")));
                 }
             }
         }
