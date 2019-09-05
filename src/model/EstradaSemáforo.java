@@ -44,7 +44,7 @@ public class EstradaSemáforo implements Estrada  {
         try {
             livre.acquire();
             mutex.acquire();
-            this.imagem = new ImageIcon(carro.getNome()+imagemBase);
+            this.imagem = new ImageIcon("assets/" + carro.getNome()+imagemBase.replace("assets/", ""));
             carro.setColuna(this.coluna);
             carro.setLinha(this.linha);
             carro.setItemPosicao(this.item);

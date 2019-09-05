@@ -5,6 +5,7 @@
  */
 package model;
 
+import controler.Gerenciador;
 import java.util.Random;
 
 /**
@@ -97,6 +98,8 @@ public class Carro extends Thread {
                 }
                 break;
                     }
+        Gerenciador ger = Gerenciador.getInstance();
+        ger.notificarEstradaAlterada();
     }
 
     private void batizador() {

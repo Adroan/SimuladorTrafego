@@ -117,6 +117,7 @@ public class CriadorDeCarros implements Buffer {
         Carro carro =new Carro(0,0,0,geradorVelocidade());
         matriz.getValorMatriz(matriz.getLinha()-1, posicoes.get(colunaNascer)).addCarroEstrada(carro);
         addCarro(matriz.getValorMatriz(matriz.getLinha()-1, posicoes.get(colunaNascer)).getCarro());
+        carro.start();
     }
 
     private void nascerOeste() throws Exception {

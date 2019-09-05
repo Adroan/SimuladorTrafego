@@ -38,6 +38,10 @@ public class Gerenciador {
         
     }
     
+    
+    public void addObservador(Observer obs) {
+        observadores.add(obs);
+    }
     public void lerMatriz(){
         try {
             leitor = new Leitor();
@@ -93,7 +97,9 @@ public class Gerenciador {
             intervaloInsercao = 700;
         }
         CriadorDeCarros cdc = new CriadorDeCarros(qtdCarros);
-        for(int i = 0; i < qtdCarros; i++){
+
+
+        for(int i = 0; i < 3; i++){
             try {
                 cdc.spawn();
                 notificarEstradaAlterada();
@@ -104,7 +110,7 @@ public class Gerenciador {
         }
     }
 
-    private void notificarEstradaAlterada() {
+    public void notificarEstradaAlterada() {
         for(Observer obs: observadores){
             obs.notificarEstradaAlterada();
         }

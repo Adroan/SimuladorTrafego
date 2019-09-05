@@ -81,6 +81,7 @@ public class SimuladorTrafego extends JFrame implements ActionListener,Observer{
         gerenciador = Gerenciador.getInstance();
         this.gerenciador.escolherMatriz(JOptionPane.showOptionDialog(rootPane, "Escolha a forma da estrada", "FORMA DA ESTRADA", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, gerenciador.getTiposEstrada(), null)); // Vai mudar e receber novas formas de inicio(Builder)       
         gerenciador.lerMatriz();
+        gerenciador.addObservador(this);
         initComponents();
         
     }
