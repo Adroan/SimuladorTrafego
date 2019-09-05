@@ -45,6 +45,12 @@ public class Gerenciador {
     public Icon getImageMatriz(int col, int row){
         return matriz.getValorMatriz(row, col).getImagem();
     }
+    public int getLinhaCount(){
+        return matriz.getLinha();
+    }
+    public int getColunaCount(){
+        return matriz.getColuna();
+    }
     
     
     

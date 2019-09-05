@@ -238,12 +238,12 @@ public class SimuladorTrafego extends JFrame implements ActionListener{
 
         @Override
         public int getColumnCount() {
-            return 25;
+            return gerenciador.getColunaCount();
         }
 
         @Override
         public int getRowCount() {
-            return 25;
+            return gerenciador.getLinhaCount();
         }
 
         @Override
