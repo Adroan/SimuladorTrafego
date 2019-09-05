@@ -86,12 +86,20 @@ public class Gerenciador {
         }
         
         if(intervaloInsercao == 0){
-            intervaloInsercao = 1000;
+            intervaloInsercao = 700;
         }
-        for(int i = 0; i < quantidadeDeCarros; i++){
-            //Carro carro = new Carro(i, modo, modo, intervalo);
+        CriadorDeCarros cdc = new CriadorDeCarros(qtdCarros);
+        for(int i = 0; i < qtdCarros; i++){
+            try {
+                cdc.spawn();
+                Thread.sleep((long) intervaloInsercao);
+            } catch (Exception ex) {
+                Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
+    
+    
     
     
     

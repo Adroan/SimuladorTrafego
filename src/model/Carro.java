@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author Adroan
  */
-public class Carro {
+public class Carro extends Thread {
     private int linha;
     private int coluna;
     private int itemPosicao;
@@ -24,6 +24,11 @@ public class Carro {
         this.itemPosicao=itemPosicao;
         this.velocidade = velocidade;
         batizador();
+    }
+
+    @Override
+    public void run() {
+        
     }
     
 
