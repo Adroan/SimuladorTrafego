@@ -7,6 +7,8 @@ package model;
 
 import controler.Gerenciador;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,7 +34,16 @@ public class Carro extends Thread {
 
     @Override
     public void run() {
-        andar();
+        while (matriz.getValorMatriz(linha, coluna).getItem()!=0) {
+            
+            andar();
+            try {
+                sleep((long) velocidade);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
     }
 
     public int getLinha() {
