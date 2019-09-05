@@ -30,12 +30,13 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import observer.Observer;
 
 /**
  *
  * @author vinny
  */
-public class SimuladorTrafego extends JFrame implements ActionListener{
+public class SimuladorTrafego extends JFrame implements ActionListener,Observer{
     
     //JLabel
     private JLabel qtdCarros;
@@ -236,6 +237,11 @@ public class SimuladorTrafego extends JFrame implements ActionListener{
         jrbSemaforo.setEnabled(true);
         jtfQtdCarros.setEnabled(true);
         jtfIntervaloInsercao.setEnabled(true);
+    }
+
+    @Override
+    public void notificarEstradaAlterada() {
+        repaint();
     }
     
     class EstradaTableModel extends AbstractTableModel {

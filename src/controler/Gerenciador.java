@@ -7,11 +7,14 @@ package controler;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import model.Carro;
 import model.Matriz;
+import observer.Observer;
 
 
 
@@ -29,6 +32,7 @@ public class Gerenciador {
     private double intervaloInsercao;
     private int modo;
     private String [] tiposEstrada = {"Exemplo 1","Exemplo 2", "Exemplo3"};
+    private List<Observer> observadores = new ArrayList<>(); 
 
     private Gerenciador() {
         
@@ -92,46 +96,25 @@ public class Gerenciador {
         for(int i = 0; i < qtdCarros; i++){
             try {
                 cdc.spawn();
+                notificarEstradaAlterada();
                 Thread.sleep((long) intervaloInsercao);
             } catch (Exception ex) {
                 Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
+
+    private void notificarEstradaAlterada() {
+        for(Observer obs: observadores){
+            obs.notificarEstradaAlterada();
+        }
+    }
+      
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+}
     
     
 //    private List<Carro> carros = new ArrayList<>();
@@ -268,5 +251,3 @@ public class Gerenciador {
 //        }
 //        return proxItem;
 //    }
-
-}
