@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
+import model.Carro;
 import model.Matriz;
 
 
@@ -22,18 +23,34 @@ public class Gerenciador {
     private Matriz matriz = Matriz.getInstance();
     private static Gerenciador instance;
     private Leitor leitor;
+    private File arquivo;
+    
+    private int quantidadeDeCarros;
+    private double intervaloInsercao;
+    private int modo;
+    private String [] tiposEstrada = {"Exemplo 1","Exemplo 2", "Exemplo3"};
 
     private Gerenciador() {
+        
+    }
+    
+    public void lerMatriz(){
         try {
             leitor = new Leitor();
-            leitor.lerMatriz(new File("src/malha-exemplo-3.txt"));
+            leitor.lerMatriz(arquivo);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     
-    
+    public void escolherMatriz(int matriz){
+        switch(matriz){
+            case 0: arquivo = new File("src/malha-exemplo-1.txt"); break;
+            case 1: arquivo = new File("src/malha-exemplo-2.txt"); break;
+            case 2: arquivo = new File("src/malha-exemplo-3.txt"); break;
+        }
+    }
     
     public synchronized static Gerenciador getInstance(){
         if(instance == null){
@@ -50,6 +67,30 @@ public class Gerenciador {
     }
     public int getColunaCount(){
         return matriz.getColuna();
+    }
+
+    public String[] getTiposEstrada() {
+        return tiposEstrada;
+    }
+    
+    
+    public void iniciarSimulacao(int qtdCarros, double intervalo, int modo){
+        this.quantidadeDeCarros = qtdCarros;
+        this.intervaloInsercao = intervalo;
+        this.modo = modo;
+        
+        if(modo == 1){
+            //Cria com semaforo
+        }else{
+            //Cria com monitor
+        }
+        
+        if(intervaloInsercao == 0){
+            intervaloInsercao = 1000;
+        }
+        for(int i = 0; i < quantidadeDeCarros; i++){
+            //Carro carro = new Carro(i, modo, modo, intervalo);
+        }
     }
     
     

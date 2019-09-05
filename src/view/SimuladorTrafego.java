@@ -78,6 +78,8 @@ public class SimuladorTrafego extends JFrame implements ActionListener{
         setResizable(false);
         getContentPane().setLayout(new BorderLayout());
         gerenciador = Gerenciador.getInstance();
+        this.gerenciador.escolherMatriz(JOptionPane.showOptionDialog(rootPane, "Escolha a forma da estrada", "FORMA DA ESTRADA", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, gerenciador.getTiposEstrada(), null)); // Vai mudar e receber novas formas de inicio(Builder)       
+        gerenciador.lerMatriz();
         initComponents();
         
     }
@@ -182,7 +184,7 @@ public class SimuladorTrafego extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == jbIniciar){
             try{
-                int intervalo;
+                int intervalo = 0;
                 boolean entrouCatch = false;
                 int qtdCarro = Integer.parseInt(jtfQtdCarros.getText());
                 if(qtdCarro <= 0){
@@ -202,7 +204,11 @@ public class SimuladorTrafego extends JFrame implements ActionListener{
                 }
                 if(!entrouCatch)
                     iniciarSimulacao();
-                //Chamar método
+                    int modo = 1;
+                    if(jrbMonitor.isSelected()){
+                        modo = 2;
+                    }
+                    gerenciador.iniciarSimulacao(qtdCarro, intervalo,modo);
                 
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(rootPane, "Quantidade de carros inválida");
