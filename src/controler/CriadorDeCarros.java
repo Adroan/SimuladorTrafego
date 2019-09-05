@@ -16,7 +16,7 @@ import model.Matriz;
  *
  * @author Adroan
  */
-public class GerenciadorCarros implements Buffer {
+public class CriadorDeCarros implements Buffer {
     Matriz matriz = Matriz.getInstance();
     private Carro[] carros;
     private int quantidade = 0;
@@ -28,7 +28,7 @@ public class GerenciadorCarros implements Buffer {
     private Semaphore cheio;
     private Semaphore livre;
 
-    public GerenciadorCarros(int capacidade) {
+    public CriadorDeCarros(int capacidade) {
         this.carros = new Carro[capacidade];
         cheio=new Semaphore(0);
         livre = new Semaphore(capacidade);

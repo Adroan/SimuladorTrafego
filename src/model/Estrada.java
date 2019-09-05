@@ -48,6 +48,12 @@ public class Estrada {
         return item;
     }
 
+    public ImageIcon getImagem() {
+        return imagem;
+    }
+    
+    
+
     public Carro retirarCarroEstrada() {
         Carro aux = null;
         try {

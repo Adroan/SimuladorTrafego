@@ -5,6 +5,13 @@
  */
 package controler;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Icon;
+import model.Matriz;
+
 
 
 /**
@@ -12,7 +19,32 @@ package controler;
  * @author Adroan
  */
 public class Gerenciador {
+    private Matriz matriz = Matriz.getInstance();
+    private static Gerenciador instance;
+    private Leitor leitor;
 
+    private Gerenciador() {
+        try {
+            leitor = new Leitor();
+            leitor.lerMatriz(new File("src/malha-exemplo-3.txt"));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    
+    
+    public synchronized static Gerenciador getInstance(){
+        if(instance == null){
+            instance = new Gerenciador();
+        }
+        return instance;
+    }
+    
+    public Icon getImageMatriz(int col, int row){
+        return matriz.getValorMatriz(row, col).getImagem();
+    }
     
     
     

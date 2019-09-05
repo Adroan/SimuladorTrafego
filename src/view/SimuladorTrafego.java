@@ -5,6 +5,7 @@
  */
 package view;
 
+import controler.Gerenciador;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -64,6 +65,9 @@ public class SimuladorTrafego extends JFrame implements ActionListener{
     //Panel
     private JPanel panelPrincipal,panelOpcoes,panelEsquerda,panelDireita;
     private JTable estrada;
+    
+    //Gerenciador
+    private Gerenciador gerenciador;
 
     public SimuladorTrafego() {
         //Configura a view
@@ -73,8 +77,9 @@ public class SimuladorTrafego extends JFrame implements ActionListener{
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setLayout(new BorderLayout());
-
+        gerenciador = Gerenciador.getInstance();
         initComponents();
+        
     }
     
     public static void main(String[] args) {
@@ -150,8 +155,7 @@ public class SimuladorTrafego extends JFrame implements ActionListener{
         }
         estrada.setRowHeight(23);
         estrada.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        estrada.setShowGrid(true);
-        estrada.setGridColor(Color.red);
+        estrada.setShowGrid(false);
         estrada.setIntercellSpacing(new Dimension(0, 0));
         estrada.setDefaultRenderer(Object.class, new EstradaRenderer());
 
@@ -245,8 +249,8 @@ public class SimuladorTrafego extends JFrame implements ActionListener{
         @Override
         public Object getValueAt(int row, int col) {
             try {
-                //return gerenciador.getPeca(col, row);
-                return null;
+                return gerenciador.getImageMatriz(col, row);
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.toString());
                 return null;
