@@ -36,7 +36,7 @@ public class EstradaSemáforo implements Estrada  {
         this.imagem = new ImageIcon(imagem);
         this.imagemBase = imagem;
         mutex = new Semaphore(1);
-        livre = new Semaphore(1);
+        livre = new Semaphore(5);
         ocupado = new Semaphore(0);
     }
     

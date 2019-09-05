@@ -103,7 +103,7 @@ public class Gerenciador {
             try {
                 cdc.spawn();
                 notificarEstradaAlterada();
-                Thread.sleep((long) intervaloInsercao);
+                //Thread.sleep((long) intervaloInsercao);
             } catch (Exception ex) {
                 Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -102,6 +102,8 @@ public class CriadorDeCarros implements Buffer {
                 nascerLeste();
                 break;
         }
+        Gerenciador ger = Gerenciador.getInstance();
+        ger.notificarEstradaAlterada();
     }
 
 //
@@ -116,8 +118,8 @@ public class CriadorDeCarros implements Buffer {
         
         Carro carro =new Carro(0,0,0,geradorVelocidade());
         matriz.getValorMatriz(matriz.getLinha()-1, posicoes.get(colunaNascer)).addCarroEstrada(carro);
-        matriz.getValorMatriz(matriz.getLinha()-1, posicoes.get(colunaNascer)).getCarro().start();
-        addCarro(matriz.getValorMatriz(matriz.getLinha()-1, posicoes.get(colunaNascer)).getCarro());
+        carro.start();
+        addCarro(carro);
         
     }
 
@@ -131,8 +133,8 @@ public class CriadorDeCarros implements Buffer {
         int linhaNascer = rand.nextInt(posicoes.size());
         Carro carro =new Carro(0,0,0,geradorVelocidade());
         matriz.getValorMatriz(posicoes.get(linhaNascer), 0).addCarroEstrada(carro);
-        matriz.getValorMatriz(posicoes.get(linhaNascer), 0).getCarro().start();
-        addCarro(matriz.getValorMatriz(posicoes.get(linhaNascer), 0).getCarro());
+        carro.start();
+        addCarro(carro);
         
     }
 
@@ -147,8 +149,8 @@ public class CriadorDeCarros implements Buffer {
         
         Carro carro =new Carro(0,0,0,geradorVelocidade());
         matriz.getValorMatriz(0, posicoes.get(colunaNascer)).addCarroEstrada(carro);
-        matriz.getValorMatriz(0, posicoes.get(colunaNascer)).getCarro().start();
-        addCarro(matriz.getValorMatriz(0, posicoes.get(colunaNascer)).getCarro());
+        carro.start();
+        addCarro(carro);
     }
 
     private void nascerLeste() throws Exception {
@@ -161,8 +163,8 @@ public class CriadorDeCarros implements Buffer {
         int linhaNascer = rand.nextInt(posicoes.size());
         Carro carro =new Carro(0,0,0,geradorVelocidade());
         matriz.getValorMatriz(posicoes.get(linhaNascer), matriz.getColuna()-1).addCarroEstrada(carro);
-        matriz.getValorMatriz(posicoes.get(linhaNascer), matriz.getColuna()-1).getCarro().start();
-        addCarro(matriz.getValorMatriz(posicoes.get(linhaNascer), matriz.getColuna()-1).getCarro());
+        carro.start();
+        addCarro(carro);
         
     }
     
