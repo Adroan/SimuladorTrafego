@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.File;
 import java.util.concurrent.Semaphore;
 import javax.swing.ImageIcon;
 
@@ -13,7 +14,7 @@ import javax.swing.ImageIcon;
  * @author Adroan
  */
 public class EstradaSemáforo implements Estrada  {
-
+    private final String imagemBase;
     private int linha;
     private int coluna;
     private int item;
@@ -25,12 +26,13 @@ public class EstradaSemáforo implements Estrada  {
     private Semaphore livre;
 
 
-    public EstradaSemáforo(int linha, int coluna, int item,Carro carro, boolean ehCruzamento, ImageIcon imagem) {
+    public EstradaSemáforo(int linha, int coluna, int item,Carro carro, boolean ehCruzamento, String imagem) {
         this.linha = linha;
         this.coluna = coluna;
         this.item = item;
         this.ehCruzamento = ehCruzamento;
-        this.imagem = imagem;
+        this.imagem = new ImageIcon(imagem);
+        this.imagemBase = imagem;
         mutex = new Semaphore(1);
         livre = new Semaphore(1);
         ocupado = new Semaphore(0);
@@ -42,7 +44,7 @@ public class EstradaSemáforo implements Estrada  {
         try {
             livre.acquire();
             mutex.acquire();
-
+            this.imagem = new ImageIcon(carro.getNome()+imagemBase);
             carro.setColuna(this.coluna);
             carro.setLinha(this.linha);
             carro.setItemPosicao(this.item);
@@ -64,7 +66,7 @@ public class EstradaSemáforo implements Estrada  {
             mutex.acquire();
             aux = carro;
             this.carro = null;
-
+            this.imagem = new ImageIcon(imagemBase);
         } catch (InterruptedException e) {
             System.out.println("Semaforo mutex ou livre interrompidos, abortado");
             e.printStackTrace();
