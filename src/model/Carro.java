@@ -81,28 +81,28 @@ public class Carro extends Thread {
     public void andar() {
         switch(itemPosicao){
             case 1:
-                if(matriz.getValorMatriz(linha-1, coluna).getItem()<=4){
+                if(matriz.getValorMatriz(linha-1, coluna).getItem()<=4&&!matriz.getValorMatriz(linha-1, coluna).estaOcupado()){
                 matriz.getValorMatriz(linha-1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 }else{
                     cruzamento();
                 }
                 break;
             case 2:
-                if(matriz.getValorMatriz(linha, coluna+1).getItem()<=4){
+                if(matriz.getValorMatriz(linha, coluna+1).getItem()<=4&&!matriz.getValorMatriz(linha, coluna+1).estaOcupado()){
                 matriz.getValorMatriz(linha, coluna+1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 }else{
                     cruzamento();
                 }
                 break;
             case 3:
-                if(matriz.getValorMatriz(linha+1, coluna).getItem()<=4){
+                if(matriz.getValorMatriz(linha+1, coluna).getItem()<=4&&!matriz.getValorMatriz(linha+1, coluna).estaOcupado()){
                 matriz.getValorMatriz(linha+1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 }else{
                     cruzamento();
                 }
                 break;
             case 4:
-                if(matriz.getValorMatriz(linha, coluna-1).getItem()<=4){
+                if(matriz.getValorMatriz(linha, coluna-1).getItem()<=4&&!matriz.getValorMatriz(linha, coluna-1).estaOcupado()){
                 matriz.getValorMatriz(linha, coluna-1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 }else{
                     cruzamento();
