@@ -5,6 +5,7 @@
  */
 package model;
 
+import controler.CriadorDeCarros;
 import controler.Gerenciador;
 import java.util.Random;
 import java.util.logging.Level;
@@ -22,26 +23,38 @@ public class Carro extends Thread {
     private double velocidade;
     private String nome;
     private Matriz matriz;
+    private boolean spawnou;
+    private CriadorDeCarros cdc;
+    private double intervaloInsercao;
 
-    public Carro(int linha, int coluna, int itemPosicao, double velocidade) {
+    public Carro(int linha, int coluna, int itemPosicao, double velocidade, int capacidadeBuffer, double intervaloInsercao) {
         this.linha = linha;
         this.coluna = coluna;
         this.itemPosicao = itemPosicao;
         this.velocidade = velocidade;
         this.matriz = Matriz.getInstance();
+        spawnou = false;
+        cdc = new CriadorDeCarros(capacidadeBuffer);
+        this.intervaloInsercao = intervaloInsercao;
         batizador();
     }
 
     @Override
     public void run() {
-        while (matriz.getValorMatriz(linha, coluna).getItem() != 0) {
-
-            andar();
+        while (true) {
+            if(!spawnou){
+                spawnar();
+            }else{
+                andar();
+            }
+            
             try {
                 sleep((long) velocidade);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
             }
+                    Gerenciador ger = Gerenciador.getInstance();
+                    ger.notificarEstradaAlterada();
         }
 
     }
@@ -78,6 +91,12 @@ public class Carro extends Thread {
         return nome;
     }
 
+    public void setVelocidade(double velocidade) {
+        this.velocidade = velocidade;
+    }
+    
+    
+
     public void andar() {
         switch (itemPosicao) {
             case 1:
@@ -109,8 +128,6 @@ public class Carro extends Thread {
                 }
                 break;
         }
-        Gerenciador ger = Gerenciador.getInstance();
-        ger.notificarEstradaAlterada();
     }
 
     private void batizador() {
@@ -137,6 +154,19 @@ public class Carro extends Thread {
 
     private void cruzamento() {
 
+    }
+
+    private void spawnar() {
+        boolean adicionou = false;
+        while(!adicionou){
+        try {
+            adicionou = cdc.spawn(this);
+            sleep((long) this.intervaloInsercao);
+        } catch (Exception ex) {
+            Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+        }           
+        }
+        spawnou = true;
     }
 
 }

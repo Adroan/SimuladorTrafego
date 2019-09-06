@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 public interface Estrada {
 
     boolean addCarroEstrada(Carro carro);
-
+    boolean spawnarCarroEstrada(Carro carro);
     Carro retirarCarroEstrada();
 
     int getLinha();
