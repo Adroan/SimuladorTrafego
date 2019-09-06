@@ -104,12 +104,15 @@ public class Gerenciador {
         CriadorDeCarros cdc = new CriadorDeCarros(qtdCarros);
 
         for (int i = 0; i < qtdCarros; i++) {
+            boolean adicionou = false;
+            while(!adicionou){
             try {
-                cdc.spawn();
+                adicionou = cdc.spawn();
                 notificarEstradaAlterada();
                 //Thread.sleep((long) intervaloInsercao);
             } catch (Exception ex) {
                 Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }
         }
     }

@@ -82,34 +82,31 @@ public class CriadorDeCarros implements Buffer {
         return carro;
     }
 
-    public void spawn() throws Exception {
+    public boolean spawn() throws Exception {
 
         int orientacao = rand.nextInt(4);
-//        int orientacao =  4;
+        boolean adicionou = false;
         switch (orientacao) {
             case 0:
-//                System.out.println("sul");
-                nascerSul();
+                adicionou = nascerSul();
                 break;
             case 1:
-//                System.out.println("oeste");
-                nascerOeste();
+                adicionou = nascerOeste();
                 break;
             case 2:
-//                System.out.println("norte");
-                nascerNorte();
+                adicionou = nascerNorte();
                 break;
             case 3:
-//                System.out.println("leste");
-                nascerLeste();
+                adicionou = nascerLeste();
                 break;
         }
         Gerenciador ger = Gerenciador.getInstance();
         ger.notificarEstradaAlterada();
+        return adicionou;
     }
 
 //
-    private void nascerSul() throws Exception {
+    private boolean nascerSul() throws Exception {
         List<Integer> posicoes = new ArrayList<>();
         for (int i = 0; i < matriz.getColuna(); i++) {
             if (matriz.getValorMatriz(matriz.getLinha() - 1, i).getItem() == 1) {
@@ -119,13 +116,13 @@ public class CriadorDeCarros implements Buffer {
         int colunaNascer = rand.nextInt(posicoes.size());
 
         Carro carro = new Carro(0, 0, 0, geradorVelocidade());
-        matriz.getValorMatriz(matriz.getLinha() - 1, posicoes.get(colunaNascer)).addCarroEstrada(carro);
+        boolean adicionou = matriz.getValorMatriz(matriz.getLinha() - 1, posicoes.get(colunaNascer)).addCarroEstrada(carro);
         carro.start();
         addCarro(carro);
-
+        return adicionou;
     }
 
-    private void nascerOeste() throws Exception {
+    private boolean nascerOeste() throws Exception {
         List<Integer> posicoes = new ArrayList<>();
         for (int i = 0; i < matriz.getLinha(); i++) {
             if (matriz.getValorMatriz(i, 0).getItem() == 2) {
@@ -134,13 +131,13 @@ public class CriadorDeCarros implements Buffer {
         }
         int linhaNascer = rand.nextInt(posicoes.size());
         Carro carro = new Carro(0, 0, 0, geradorVelocidade());
-        matriz.getValorMatriz(posicoes.get(linhaNascer), 0).addCarroEstrada(carro);
+        boolean adicionou = matriz.getValorMatriz(posicoes.get(linhaNascer), 0).addCarroEstrada(carro);
         carro.start();
         addCarro(carro);
-
+        return adicionou;
     }
 
-    private void nascerNorte() throws Exception {
+    private boolean nascerNorte() throws Exception {
         List<Integer> posicoes = new ArrayList<>();
         for (int i = 0; i < matriz.getColuna(); i++) {
             if (matriz.getValorMatriz(0, i).getItem() == 3) {
@@ -150,12 +147,13 @@ public class CriadorDeCarros implements Buffer {
         int colunaNascer = rand.nextInt(posicoes.size());
 
         Carro carro = new Carro(0, 0, 0, geradorVelocidade());
-        matriz.getValorMatriz(0, posicoes.get(colunaNascer)).addCarroEstrada(carro);
+        boolean adicionou = matriz.getValorMatriz(0, posicoes.get(colunaNascer)).addCarroEstrada(carro);
         carro.start();
         addCarro(carro);
+        return adicionou;
     }
 
-    private void nascerLeste() throws Exception {
+    private boolean nascerLeste() throws Exception {
         List<Integer> posicoes = new ArrayList<>();
         for (int i = 0; i < matriz.getLinha(); i++) {
             if (matriz.getValorMatriz(i, matriz.getColuna() - 1).getItem() == 4) {
@@ -164,10 +162,10 @@ public class CriadorDeCarros implements Buffer {
         }
         int linhaNascer = rand.nextInt(posicoes.size());
         Carro carro = new Carro(0, 0, 0, geradorVelocidade());
-        matriz.getValorMatriz(posicoes.get(linhaNascer), matriz.getColuna() - 1).addCarroEstrada(carro);
+        boolean adicionou = matriz.getValorMatriz(posicoes.get(linhaNascer), matriz.getColuna() - 1).addCarroEstrada(carro);
         carro.start();
         addCarro(carro);
-
+        return adicionou;
     }
 
     private double geradorVelocidade() {

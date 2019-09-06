@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 public class EstradaMonitor implements Estrada {
 
     @Override
-    public void addCarroEstrada(Carro carro) {
+    public boolean addCarroEstrada(Carro carro) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
  */
 public interface Estrada {
 
-    void addCarroEstrada(Carro carro);
+    boolean addCarroEstrada(Carro carro);
 
     Carro retirarCarroEstrada();
 
