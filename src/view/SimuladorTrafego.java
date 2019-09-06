@@ -36,37 +36,35 @@ import observer.Observer;
  *
  * @author vinny
  */
-public class SimuladorTrafego extends JFrame implements ActionListener,Observer{
-    
+public class SimuladorTrafego extends JFrame implements ActionListener, Observer {
+
     //JLabel
     private JLabel qtdCarros;
     private JLabel intervaloInsercao;
-    private JLabel modo; 
+    private JLabel modo;
     private JLabel quantidadeCarrosRodando;
     private JLabel tempoDeExecucao;
-    
+
     //JTextField
     private JTextField jtfQtdCarros;
     private JTextField jtfIntervaloInsercao;
     private JTextField jtfQuantidadeCarrosRodando;
     private JTextField jtfTempoDeExecucao;
-    
-    
+
     //JButton
-    private JButton jbIniciar,jbEncerrar;
-    private JRadioButton jrbSemaforo,jrbMonitor;
+    private JButton jbIniciar, jbEncerrar;
+    private JRadioButton jrbSemaforo, jrbMonitor;
     private ButtonGroup bgOpcoes;
 
-    
     //Layouts
     private GridBagLayout layout;
     private GridLayout gridLayout;
     private GridBagConstraints constraints;
-    
+
     //Panel
-    private JPanel panelPrincipal,panelOpcoes,panelEsquerda,panelDireita;
+    private JPanel panelPrincipal, panelOpcoes, panelEsquerda, panelDireita;
     private JTable estrada;
-    
+
     //Gerenciador
     private Gerenciador gerenciador;
 
@@ -83,9 +81,9 @@ public class SimuladorTrafego extends JFrame implements ActionListener,Observer{
         gerenciador.lerMatriz();
         gerenciador.addObservador(this);
         initComponents();
-        
+
     }
-    
+
     public static void main(String[] args) {
         try {
             SimuladorTrafego d = new SimuladorTrafego();
@@ -95,36 +93,34 @@ public class SimuladorTrafego extends JFrame implements ActionListener,Observer{
         }
 
     }
-    
-    
-    private void initComponents(){
-        
+
+    private void initComponents() {
+
         //Inicia os componentes de layout
         constraints = new GridBagConstraints();
         layout = new GridBagLayout();
-        gridLayout = new GridLayout(3, 3,10,10);
-        
+        gridLayout = new GridLayout(3, 3, 10, 10);
+
         //Inicia os panels do sistema
         panelPrincipal = new JPanel();
         panelOpcoes = new JPanel(gridLayout);
         panelEsquerda = new JPanel();
         panelDireita = new JPanel();
-        
+
         //Inicia componentes de interface
-        
         //JLabels
         qtdCarros = new JLabel("Quantidade de carros");
         intervaloInsercao = new JLabel("Intervalo de Insercao (ms): ");
         modo = new JLabel("Selecione o modo: ");
         quantidadeCarrosRodando = new JLabel("Carros rodando: ");
         tempoDeExecucao = new JLabel("Tempo de execucao: ");
-        
+
         //JTextFields
         jtfQtdCarros = new JTextField();
         jtfIntervaloInsercao = new JTextField();
         jtfQuantidadeCarrosRodando = new JTextField();
         jtfTempoDeExecucao = new JTextField();
-        
+
         //Buttons
         jbIniciar = new JButton("Iniciar Simulacao");
         jbEncerrar = new JButton("Encerrar Simulacao");
@@ -134,7 +130,7 @@ public class SimuladorTrafego extends JFrame implements ActionListener,Observer{
         bgOpcoes = new ButtonGroup();
         bgOpcoes.add(jrbSemaforo);
         bgOpcoes.add(jrbMonitor);
-        
+
         //Adiciona os itens no painel de opcoes
         panelOpcoes.add(qtdCarros);
         panelOpcoes.add(jtfQtdCarros);
@@ -145,10 +141,9 @@ public class SimuladorTrafego extends JFrame implements ActionListener,Observer{
         panelOpcoes.add(modo);
         panelOpcoes.add(jrbSemaforo);
         panelOpcoes.add(jrbMonitor);
-        
-        add(panelOpcoes,BorderLayout.NORTH);
-        
-        
+
+        add(panelOpcoes, BorderLayout.NORTH);
+
         // criar o tabuleiro e seus componentes
         estrada = new JTable();
         estrada.setModel(new EstradaTableModel());
@@ -163,7 +158,6 @@ public class SimuladorTrafego extends JFrame implements ActionListener,Observer{
         estrada.setIntercellSpacing(new Dimension(-1, 0));
         estrada.setDefaultRenderer(Object.class, new EstradaRenderer());
 
-
         //Adiciona o tabuleiro no centro da tela
         panelEsquerda.add(quantidadeCarrosRodando);
         panelEsquerda.add(jtfQuantidadeCarrosRodando);
@@ -172,11 +166,11 @@ public class SimuladorTrafego extends JFrame implements ActionListener,Observer{
         panelEsquerda.setLayout(new GridLayout(4, 2, 10, 10));
         panelPrincipal.setLayout(new FlowLayout(FlowLayout.CENTER));
         panelPrincipal.add(estrada);
-        
+
         //add(panelEsquerda,BorderLayout.WEST);
-        add(panelPrincipal,BorderLayout.CENTER);
+        add(panelPrincipal, BorderLayout.CENTER);
         //add(panelDireita,BorderLayout.EAST);
-        
+
         //Adicionando eventos
         jbIniciar.addActionListener(this);
         jbEncerrar.addActionListener(this);
@@ -184,44 +178,45 @@ public class SimuladorTrafego extends JFrame implements ActionListener,Observer{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == jbIniciar){
-            try{
+        if (e.getSource() == jbIniciar) {
+            try {
                 int intervalo = 0;
                 boolean entrouCatch = false;
                 int qtdCarro = Integer.parseInt(jtfQtdCarros.getText());
-                if(qtdCarro <= 0){
+                if (qtdCarro <= 0) {
                     qtdCarro = qtdCarro / 0;
                 }
-                if(!jtfIntervaloInsercao.getText().equals("")){
-                    try{
+                if (!jtfIntervaloInsercao.getText().equals("")) {
+                    try {
                         intervalo = Integer.parseInt(jtfIntervaloInsercao.getText());
-                        if(intervalo <= 0){
+                        if (intervalo <= 0) {
                             intervalo = intervalo / 0;
                         }
-                    }catch(Exception exe){
+                    } catch (Exception exe) {
                         JOptionPane.showMessageDialog(rootPane, "Intervalo inválido");
                         entrouCatch = true;
                     }
-                    
+
                 }
-                if(!entrouCatch)
+                if (!entrouCatch) {
                     iniciarSimulacao();
-                    int modo = 1;
-                    if(jrbMonitor.isSelected()){
-                        modo = 2;
-                    }
-                    gerenciador.iniciarSimulacao(qtdCarro, intervalo,modo);
-                
-            }catch(Exception ex){
+                }
+                int modo = 1;
+                if (jrbMonitor.isSelected()) {
+                    modo = 2;
+                }
+                gerenciador.iniciarSimulacao(qtdCarro, intervalo, modo);
+
+            } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootPane, "Quantidade de carros inválida");
             }
         }
-        if(e.getSource() == jbEncerrar){
+        if (e.getSource() == jbEncerrar) {
             encerrarSimulacao();
         }
-        
+
     }
-    
+
     public void iniciarSimulacao() {
         jbIniciar.setEnabled(false);
         jbEncerrar.setEnabled(true);
@@ -230,8 +225,8 @@ public class SimuladorTrafego extends JFrame implements ActionListener,Observer{
         jtfQtdCarros.setEnabled(false);
         jtfIntervaloInsercao.setEnabled(false);
     }
-    
-    public void encerrarSimulacao(){
+
+    public void encerrarSimulacao() {
         jbIniciar.setEnabled(true);
         jbEncerrar.setEnabled(false);
         jrbMonitor.setEnabled(true);
@@ -244,7 +239,7 @@ public class SimuladorTrafego extends JFrame implements ActionListener,Observer{
     public void notificarEstradaAlterada() {
         repaint();
     }
-    
+
     class EstradaTableModel extends AbstractTableModel {
 
         private static final long serialVersionUID = 1L;
@@ -271,7 +266,7 @@ public class SimuladorTrafego extends JFrame implements ActionListener,Observer{
         }
 
     }
-    
+
     class EstradaRenderer extends DefaultTableCellRenderer {
 
         private static final long serialVersionUID = 1L;

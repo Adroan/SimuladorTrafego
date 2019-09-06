@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
  *
  * @author Adroan
  */
-public class EstradaMonitor implements Estrada{
+public class EstradaMonitor implements Estrada {
 
     @Override
     public void addCarroEstrada(Carro carro) {
@@ -67,5 +67,5 @@ public class EstradaMonitor implements Estrada{
     public void setEhCruzamento(boolean ehCruzamento) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

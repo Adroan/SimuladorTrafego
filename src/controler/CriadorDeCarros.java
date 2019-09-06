@@ -17,20 +17,21 @@ import model.Matriz;
  * @author Adroan
  */
 public class CriadorDeCarros implements Buffer {
+
     Matriz matriz = Matriz.getInstance();
     private Carro[] carros;
     private int quantidade = 0;
     private int inicio = 0;
     private int fim = 0;
     private Random rand = new Random();
-    
+
     private Semaphore mutex;
     private Semaphore cheio;
     private Semaphore livre;
 
     public CriadorDeCarros(int capacidade) {
         this.carros = new Carro[capacidade];
-        cheio=new Semaphore(0);
+        cheio = new Semaphore(0);
         livre = new Semaphore(capacidade);
         mutex = new Semaphore(1);
     }
@@ -50,7 +51,7 @@ public class CriadorDeCarros implements Buffer {
         } catch (InterruptedException e) {
             System.out.println("interrompido");
             e.printStackTrace();
-        }finally{
+        } finally {
             mutex.release();
             cheio.release();
         }
@@ -58,30 +59,31 @@ public class CriadorDeCarros implements Buffer {
 
     @Override
     public Carro removerCarro() throws Exception {
-       Carro carro = null;
-       try{
-           
-           cheio.acquire();
-           mutex.acquire();
-           if(quantidade == 0){
-               throw new Exception("Buffer vazio");
-           }
-           carro = carros[inicio];
-           carros[inicio] = null;
-           inicio = (inicio +1) % carros.length;
-           quantidade--;
-       }catch(InterruptedException e){
-           System.out.println("interrompido");
-           e.printStackTrace();
-           return null;
-       }finally{
-           mutex.release();
-           livre.release();
-       }      return carro;
+        Carro carro = null;
+        try {
+
+            cheio.acquire();
+            mutex.acquire();
+            if (quantidade == 0) {
+                throw new Exception("Buffer vazio");
+            }
+            carro = carros[inicio];
+            carros[inicio] = null;
+            inicio = (inicio + 1) % carros.length;
+            quantidade--;
+        } catch (InterruptedException e) {
+            System.out.println("interrompido");
+            e.printStackTrace();
+            return null;
+        } finally {
+            mutex.release();
+            livre.release();
+        }
+        return carro;
     }
-    
-    public void spawn() throws Exception{
-        
+
+    public void spawn() throws Exception {
+
         int orientacao = rand.nextInt(4);
 //        int orientacao =  4;
         switch (orientacao) {
@@ -115,12 +117,12 @@ public class CriadorDeCarros implements Buffer {
             }
         }
         int colunaNascer = rand.nextInt(posicoes.size());
-        
-        Carro carro =new Carro(0,0,0,geradorVelocidade());
-        matriz.getValorMatriz(matriz.getLinha()-1, posicoes.get(colunaNascer)).addCarroEstrada(carro);
+
+        Carro carro = new Carro(0, 0, 0, geradorVelocidade());
+        matriz.getValorMatriz(matriz.getLinha() - 1, posicoes.get(colunaNascer)).addCarroEstrada(carro);
         carro.start();
         addCarro(carro);
-        
+
     }
 
     private void nascerOeste() throws Exception {
@@ -131,11 +133,11 @@ public class CriadorDeCarros implements Buffer {
             }
         }
         int linhaNascer = rand.nextInt(posicoes.size());
-        Carro carro =new Carro(0,0,0,geradorVelocidade());
+        Carro carro = new Carro(0, 0, 0, geradorVelocidade());
         matriz.getValorMatriz(posicoes.get(linhaNascer), 0).addCarroEstrada(carro);
         carro.start();
         addCarro(carro);
-        
+
     }
 
     private void nascerNorte() throws Exception {
@@ -146,8 +148,8 @@ public class CriadorDeCarros implements Buffer {
             }
         }
         int colunaNascer = rand.nextInt(posicoes.size());
-        
-        Carro carro =new Carro(0,0,0,geradorVelocidade());
+
+        Carro carro = new Carro(0, 0, 0, geradorVelocidade());
         matriz.getValorMatriz(0, posicoes.get(colunaNascer)).addCarroEstrada(carro);
         carro.start();
         addCarro(carro);
@@ -161,14 +163,14 @@ public class CriadorDeCarros implements Buffer {
             }
         }
         int linhaNascer = rand.nextInt(posicoes.size());
-        Carro carro =new Carro(0,0,0,geradorVelocidade());
-        matriz.getValorMatriz(posicoes.get(linhaNascer), matriz.getColuna()-1).addCarroEstrada(carro);
+        Carro carro = new Carro(0, 0, 0, geradorVelocidade());
+        matriz.getValorMatriz(posicoes.get(linhaNascer), matriz.getColuna() - 1).addCarroEstrada(carro);
         carro.start();
         addCarro(carro);
-        
+
     }
-    
-    private double geradorVelocidade(){
-        return 250 +(rand.nextDouble()*(3000-250));
+
+    private double geradorVelocidade() {
+        return 250 + (rand.nextDouble() * (3000 - 250));
     }
 }

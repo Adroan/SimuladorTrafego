@@ -12,8 +12,9 @@ import model.Carro;
  * @author Adroan
  */
 public interface Buffer {
+
     public void addCarro(Carro carro) throws Exception;
+
     public Carro removerCarro() throws Exception;
-    
-    
+
 }

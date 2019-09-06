@@ -16,33 +16,32 @@ import model.Carro;
 import model.Matriz;
 import observer.Observer;
 
-
-
 /**
  *
  * @author Adroan
  */
 public class Gerenciador {
+
     private Matriz matriz = Matriz.getInstance();
     private static Gerenciador instance;
     private Leitor leitor;
     private File arquivo;
-    
+
     private int quantidadeDeCarros;
     private double intervaloInsercao;
     private int modo;
-    private String [] tiposEstrada = {"Exemplo 1","Exemplo 2", "Exemplo3"};
-    private List<Observer> observadores = new ArrayList<>(); 
+    private String[] tiposEstrada = {"Exemplo 1", "Exemplo 2", "Exemplo3"};
+    private List<Observer> observadores = new ArrayList<>();
 
     private Gerenciador() {
-        
+
     }
-    
-    
+
     public void addObservador(Observer obs) {
         observadores.add(obs);
     }
-    public void lerMatriz(){
+
+    public void lerMatriz() {
         try {
             leitor = new Leitor();
             leitor.lerMatriz(arquivo);
@@ -50,56 +49,61 @@ public class Gerenciador {
             Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    public void escolherMatriz(int matriz){
-        switch(matriz){
-            case 0: arquivo = new File("src/malha-exemplo-1.txt"); break;
-            case 1: arquivo = new File("src/malha-exemplo-2.txt"); break;
-            case 2: arquivo = new File("src/malha-exemplo-3.txt"); break;
+
+    public void escolherMatriz(int matriz) {
+        switch (matriz) {
+            case 0:
+                arquivo = new File("src/malha-exemplo-1.txt");
+                break;
+            case 1:
+                arquivo = new File("src/malha-exemplo-2.txt");
+                break;
+            case 2:
+                arquivo = new File("src/malha-exemplo-3.txt");
+                break;
         }
     }
-    
-    public synchronized static Gerenciador getInstance(){
-        if(instance == null){
+
+    public synchronized static Gerenciador getInstance() {
+        if (instance == null) {
             instance = new Gerenciador();
         }
         return instance;
     }
-    
-    public Icon getImageMatriz(int col, int row){
+
+    public Icon getImageMatriz(int col, int row) {
         return matriz.getValorMatriz(row, col).getImagem();
     }
-    public int getLinhaCount(){
+
+    public int getLinhaCount() {
         return matriz.getLinha();
     }
-    public int getColunaCount(){
+
+    public int getColunaCount() {
         return matriz.getColuna();
     }
 
     public String[] getTiposEstrada() {
         return tiposEstrada;
     }
-    
-    
-    public void iniciarSimulacao(int qtdCarros, double intervalo, int modo){
+
+    public void iniciarSimulacao(int qtdCarros, double intervalo, int modo) {
         this.quantidadeDeCarros = qtdCarros;
         this.intervaloInsercao = intervalo;
         this.modo = modo;
-        
-        if(modo == 1){
+
+        if (modo == 1) {
             //Cria com semaforo
-        }else{
+        } else {
             //Cria com monitor
         }
-        
-        if(intervaloInsercao == 0){
+
+        if (intervaloInsercao == 0) {
             intervaloInsercao = 700;
         }
         CriadorDeCarros cdc = new CriadorDeCarros(qtdCarros);
 
-
-        for(int i = 0; i < qtdCarros; i++){
+        for (int i = 0; i < qtdCarros; i++) {
             try {
                 cdc.spawn();
                 notificarEstradaAlterada();
@@ -111,18 +115,13 @@ public class Gerenciador {
     }
 
     public void notificarEstradaAlterada() {
-        for(Observer obs: observadores){
+        for (Observer obs : observadores) {
             obs.notificarEstradaAlterada();
         }
     }
-      
-    
-    
-
 
 }
-    
-    
+
 //    private List<Carro> carros = new ArrayList<>();
 //    private Random rand = new Random();
 //    private Matriz matriz;

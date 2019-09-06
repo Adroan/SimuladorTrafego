@@ -68,9 +68,5 @@ public class Leitor {
         System.out.println("impresso!");
     }
 
-    private void refinar() {
-        for (int i = 0; i < 10; i++) {
 
-        }
-    }
 }

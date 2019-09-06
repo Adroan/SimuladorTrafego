@@ -12,15 +12,26 @@ import javax.swing.ImageIcon;
  * @author Adroan
  */
 public interface Estrada {
- void addCarroEstrada(Carro carro);
-Carro retirarCarroEstrada();
-int getLinha();
-int getColuna();
-int getItem();
-ImageIcon getImagem();
-void setImagem(ImageIcon imagem);
-Carro getCarro();
-boolean estaOcupado();
-boolean isEhCruzamento();
-void setEhCruzamento(boolean ehCruzamento);
+
+    void addCarroEstrada(Carro carro);
+
+    Carro retirarCarroEstrada();
+
+    int getLinha();
+
+    int getColuna();
+
+    int getItem();
+
+    ImageIcon getImagem();
+
+    void setImagem(ImageIcon imagem);
+
+    Carro getCarro();
+
+    boolean estaOcupado();
+
+    boolean isEhCruzamento();
+
+    void setEhCruzamento(boolean ehCruzamento);
 }
