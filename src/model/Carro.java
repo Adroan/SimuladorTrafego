@@ -103,30 +103,31 @@ public class Carro extends Thread {
                 if (matriz.getValorMatriz(linha - 1, coluna).getItem() <= 4 && !matriz.getValorMatriz(linha - 1, coluna).estaOcupado()) {
                     matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 } else {
-                    cruzamento();
+                    cruzamento(matriz.getValorMatriz(linha - 1, coluna).getItem());
                 }
                 break;
             case 2:
                 if (matriz.getValorMatriz(linha, coluna + 1).getItem() <= 4 && !matriz.getValorMatriz(linha, coluna + 1).estaOcupado()) {
                     matriz.getValorMatriz(linha, coluna + 1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 } else {
-                    cruzamento();
+                    cruzamento(matriz.getValorMatriz(linha, coluna + 1).getItem());
                 }
                 break;
             case 3:
                 if (matriz.getValorMatriz(linha + 1, coluna).getItem() <= 4 && !matriz.getValorMatriz(linha + 1, coluna).estaOcupado()) {
                     matriz.getValorMatriz(linha + 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 } else {
-                    cruzamento();
+                    cruzamento(matriz.getValorMatriz(linha + 1, coluna).getItem());
                 }
                 break;
             case 4:
                 if (matriz.getValorMatriz(linha, coluna - 1).getItem() <= 4 && !matriz.getValorMatriz(linha, coluna - 1).estaOcupado()) {
                     matriz.getValorMatriz(linha, coluna - 1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 } else {
-                    cruzamento();
+                    cruzamento(matriz.getValorMatriz(linha, coluna - 1).getItem());
                 }
                 break;
+                
         }
     }
 
@@ -152,8 +153,30 @@ public class Carro extends Thread {
         }
     }
 
-    private void cruzamento() {
-
+    private void cruzamento(int item) {
+        switch(item){
+            case 5: 
+                matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+                break;
+            case 7: 
+                matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+                break;
+            case 8: 
+                matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+                break;
+            case 9: 
+                matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+                break;
+            case 10: 
+                matriz.getValorMatriz(linha, coluna - 1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+                break;
+            case 11: 
+                matriz.getValorMatriz(linha, coluna + 1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+                break;
+            case 12: 
+                matriz.getValorMatriz(linha + 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+                break;
+        }
     }
 
     private void spawnar() {

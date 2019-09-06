@@ -5,11 +5,10 @@
         <group>
             <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/controler/CriadorDeCarros.java</file>
             <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/view/SimuladorTrafego.java</file>
-            <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/observer/Observer.java</file>
             <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/model/Carro.java</file>
-            <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/controler/Leitor.java</file>
+            <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/model/EstradaMonitor.java</file>
             <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/controler/Gerenciador.java</file>
-            <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/model/Matriz.java</file>
+            <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/controler/Leitor.java</file>
             <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/model/EstradaSemáforo.java</file>
             <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/model/Estrada.java</file>
         </group>
