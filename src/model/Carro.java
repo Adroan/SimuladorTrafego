@@ -107,28 +107,28 @@ public class Carro extends Thread {
                 if (matriz.getValorMatriz(linha - 1, coluna).getItem() <= 4 && !matriz.getValorMatriz(linha - 1, coluna).estaOcupado()) {
                     matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 } else {
-                    cruzamento(matriz.getValorMatriz(linha - 1, coluna).getItem());
+                    cruzamento();
                 }
                 break;
             case 2:
                 if (matriz.getValorMatriz(linha, coluna + 1).getItem() <= 4 && !matriz.getValorMatriz(linha, coluna + 1).estaOcupado()) {
                     matriz.getValorMatriz(linha, coluna + 1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 } else {
-                    cruzamento(matriz.getValorMatriz(linha, coluna + 1).getItem());
+                    cruzamento();
                 }
                 break;
             case 3:
                 if (matriz.getValorMatriz(linha + 1, coluna).getItem() <= 4 && !matriz.getValorMatriz(linha + 1, coluna).estaOcupado()) {
                     matriz.getValorMatriz(linha + 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 } else {
-                    cruzamento(matriz.getValorMatriz(linha + 1, coluna).getItem());
+                    cruzamento();
                 }
                 break;
             case 4:
                 if (matriz.getValorMatriz(linha, coluna - 1).getItem() <= 4 && !matriz.getValorMatriz(linha, coluna - 1).estaOcupado()) {
                     matriz.getValorMatriz(linha, coluna - 1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 } else {
-                    cruzamento(matriz.getValorMatriz(linha, coluna - 1).getItem());
+                    cruzamento();
                 }
                 break;
                 
@@ -158,17 +158,16 @@ public class Carro extends Thread {
     }
 //tentativa 
     private void cruzamento() {
-        Estrada[] posi = new Estrada[3];
+        List<Estrada> estradas = new ArrayList<>();
         switch(itemPosicao){
-            case 1:
-                posi[0] = matriz.getValorMatriz(linha-1, coluna+1);
-                posi[1] = matriz.getValorMatriz(linha-3, coluna);
-                posi[2] = matriz.getValorMatriz(linha-1, coluna-2);
-                Estrada selecionada = posi[rand.nextInt(3)];
-                for (int i = 0; i < linha-selecionada.getLinha() ; i++) {
-                    for (int j = 0; j < 10; j++) {
-                        
-                    }
+            case 5:
+                estradas.add(matriz.getValorMatriz(linha-2, coluna-2)); // ir pra esquerda
+                estradas.add(matriz.getValorMatriz(linha-3, coluna)); // ir pra direita
+                Estrada selecionada = estradas.get(rand.nextInt(2));
+                if(selecionada.getClass() == estradas.get(0).getClass()){
+                    atravessarCruzamentoEsquerda(3); //3 = numero de casas que vai andar
+                }else{
+                    atravessarCruzamentoCima(2);
                 }
                 break;
             case 2:
@@ -178,65 +177,26 @@ public class Carro extends Thread {
             case 4:
                 break;
             
+        }              
+    }
+    
+    private void atravessarCruzamentoEsquerda(int qtdCasas){
+        switch(qtdCasas){
+            case 1: 
+                matriz.getValorMatriz(linha+1, coluna).reservar(); //Como o primeiro bloco que cada carro tenta acessar é o ultimo dos outros,
+//precisa de um metodo separado pra mover no cruzamento se pa     //se ele não conseguiu o acquire, entao alguem ta andando.
         }
-//        switch(item){
-//            case 5:
-//                if(!matriz.getValorMatriz(linha-1, coluna).estaOcupado()&&matriz.getValorMatriz(linha-1, coluna).getItem()>4){
-//                matriz.getValorMatriz(linha-1, coluna).reservar();
-//                caminho.add(matriz.getValorMatriz(linha-1, coluna));
-//                cruzamento(matriz.getValorMatriz(linha-2, coluna).getItem());
-//                }
-//                break;
-//            case 6:
-//                if(!matriz.getValorMatriz(linha, coluna + 1).estaOcupado())
-//                matriz.getValorMatriz(linha, coluna+1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-//                break;
-//            case 7: 
-//                if(!matriz.getValorMatriz(linha + 1, coluna).estaOcupado())
-//                matriz.getValorMatriz(linha + 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-//                break;
-//            case 8: 
-//                if(!matriz.getValorMatriz(linha, coluna-1).estaOcupado())
-//                matriz.getValorMatriz(linha, coluna-1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-//                break;
-//            case 9: 
-//                if(rand.nextBoolean()){
-//                    if(!matriz.getValorMatriz(linha-1, coluna).estaOcupado())
-//                matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-//                }else{
-//                    if(!matriz.getValorMatriz(linha, coluna + 1).estaOcupado())
-//                matriz.getValorMatriz(linha, coluna+1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-//                }
-//                break;
-//            case 10: 
-//                if(rand.nextBoolean()){
-//                    if(!matriz.getValorMatriz(linha-1, coluna).estaOcupado())
-//                matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-//                }else{
-//                    if(!matriz.getValorMatriz(linha, coluna - 1).estaOcupado())
-//                matriz.getValorMatriz(linha, coluna-1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-//                }
-//                break;
-//            case 11: 
-//                if(rand.nextBoolean()){
-//                    if(!matriz.getValorMatriz(linha+1, coluna).estaOcupado())
-//                matriz.getValorMatriz(linha + 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-//                }else{
-//                    if(!matriz.getValorMatriz(linha, coluna + 1).estaOcupado())
-//                matriz.getValorMatriz(linha, coluna+1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-//                }
-//                break;
-//            case 12: 
-//                if(rand.nextBoolean()){
-//                    if(!matriz.getValorMatriz(linha+1, coluna).estaOcupado())
-//                matriz.getValorMatriz(linha + 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-//                }else{
-//                    if(!matriz.getValorMatriz(linha, coluna - 1).estaOcupado())
-//                matriz.getValorMatriz(linha, coluna-1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-//                }
-//                break;
-//        }
-//        
+    }
+    
+    private void atravessarCruzamentoDireita(int qtdCasas){
+        
+    }
+    
+    private void atravessarCruzamentoBaixo(int qtdCasas){
+        
+    }
+    
+    private void atravessarCruzamentoCima(int qtdCasas){
         
     }
 
