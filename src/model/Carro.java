@@ -30,6 +30,7 @@ public class Carro extends Thread {
     private CriadorDeCarros cdc;
     private double intervaloInsercao;
     private Random rand = new Random();
+    private boolean vivo = true;
     private List<Estrada> caminho = new ArrayList<>();
 
     public Carro(int linha, int coluna, int itemPosicao, double velocidade, int capacidadeBuffer, double intervaloInsercao) {
@@ -46,7 +47,7 @@ public class Carro extends Thread {
 
     @Override
     public void run() {
-        while (true) {
+        while (vivo) {
             if(!spawnou){
                 spawnar();
             }else{
@@ -137,6 +138,9 @@ public class Carro extends Thread {
                 }
                 break;
                 
+                default: matriz.getValorMatriz(linha, coluna).retirarCarroEstrada();
+                        vivo = false;
+                
         }
     }
 
@@ -202,9 +206,13 @@ public class Carro extends Thread {
                 estradas.add(matriz.getValorMatriz(linha-1, coluna+1)); // ir pra direita
                 selecionada = estradas.get(rand.nextInt(3));
                 if(selecionada.getItem() == estradas.get(0).getItem()){
-                    atravessarCruzamentoEsquerda(3); //3 = numero de casas que vai andar
+                    if(selecionada.getItem() != 0){
+                        atravessarCruzamentoEsquerda(3); //3 = numero de casas que vai andar
+                    }
                 }else if(selecionada.getItem() == estradas.get(0).getItem()){
+                    if(selecionada.getItem() != 0){
                     atravessarCruzamentoCima(2);
+                    }
                 }else{
                     atravessarCruzamentoDireita(1);
                 }
@@ -217,7 +225,9 @@ public class Carro extends Thread {
                 if(selecionada.getItem() == estradas.get(0).getItem()){
                     atravessarCruzamentoBaixo(3); //3 = numero de casas que vai andar
                 }else if(selecionada.getItem() == estradas.get(1).getItem()){
-                    atravessarCruzamentoEsquerda(2);
+                    if(selecionada.getItem() != 0){
+                      atravessarCruzamentoEsquerda(2);  
+                    }                    
                 }else{
                     atravessarCruzamentoCima(1);
                 }
@@ -229,9 +239,13 @@ public class Carro extends Thread {
                 estradas.add(matriz.getValorMatriz(linha+1, coluna+1)); // ir pra baixo
                 selecionada = estradas.get(rand.nextInt(3));
                 if(selecionada.getItem() == estradas.get(0).getItem()){
+                    if(selecionada.getItem() != 0){
                     atravessarCruzamentoCima(3); //3 = numero de casas que vai andar
+                    }
                 }else if(selecionada.getItem() == estradas.get(1).getItem()){
-                    atravessarCruzamentoDireita(2);
+                    if(selecionada.getItem() != 0){
+                        atravessarCruzamentoDireita(2);
+                    }                    
                 }else{
                     atravessarCruzamentoBaixo(1);
                 }
@@ -246,7 +260,9 @@ public class Carro extends Thread {
                 }else if(selecionada.getItem() == estradas.get(1).getItem()){
                     atravessarCruzamentoBaixo(2);
                 }else{
-                    atravessarCruzamentoDireita(3);
+                    if(selecionada.getItem() != 0){
+                        atravessarCruzamentoDireita(3);
+                    }                   
                 }
                 break;
             
