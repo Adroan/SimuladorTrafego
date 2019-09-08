@@ -7,6 +7,8 @@ package model;
 
 import controler.CriadorDeCarros;
 import controler.Gerenciador;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +28,8 @@ public class Carro extends Thread {
     private boolean spawnou;
     private CriadorDeCarros cdc;
     private double intervaloInsercao;
+    private Random rand = new Random();
+    private List<Estrada> caminho = new ArrayList<>();
 
     public Carro(int linha, int coluna, int itemPosicao, double velocidade, int capacidadeBuffer, double intervaloInsercao) {
         this.linha = linha;
@@ -152,31 +156,88 @@ public class Carro extends Thread {
                 break;
         }
     }
-
-    private void cruzamento(int item) {
-        switch(item){
-            case 5: 
-                matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+//tentativa 
+    private void cruzamento() {
+        Estrada[] posi = new Estrada[3];
+        switch(itemPosicao){
+            case 1:
+                posi[0] = matriz.getValorMatriz(linha-1, coluna+1);
+                posi[1] = matriz.getValorMatriz(linha-3, coluna);
+                posi[2] = matriz.getValorMatriz(linha-1, coluna-2);
+                Estrada selecionada = posi[rand.nextInt(3)];
+                for (int i = 0; i < linha-selecionada.getLinha() ; i++) {
+                    for (int j = 0; j < 10; j++) {
+                        
+                    }
+                }
                 break;
-            case 7: 
-                matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+            case 2:
                 break;
-            case 8: 
-                matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+            case 3:
                 break;
-            case 9: 
-                matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+            case 4:
                 break;
-            case 10: 
-                matriz.getValorMatriz(linha, coluna - 1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-                break;
-            case 11: 
-                matriz.getValorMatriz(linha, coluna + 1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-                break;
-            case 12: 
-                matriz.getValorMatriz(linha + 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-                break;
+            
         }
+//        switch(item){
+//            case 5:
+//                if(!matriz.getValorMatriz(linha-1, coluna).estaOcupado()&&matriz.getValorMatriz(linha-1, coluna).getItem()>4){
+//                matriz.getValorMatriz(linha-1, coluna).reservar();
+//                caminho.add(matriz.getValorMatriz(linha-1, coluna));
+//                cruzamento(matriz.getValorMatriz(linha-2, coluna).getItem());
+//                }
+//                break;
+//            case 6:
+//                if(!matriz.getValorMatriz(linha, coluna + 1).estaOcupado())
+//                matriz.getValorMatriz(linha, coluna+1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+//                break;
+//            case 7: 
+//                if(!matriz.getValorMatriz(linha + 1, coluna).estaOcupado())
+//                matriz.getValorMatriz(linha + 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+//                break;
+//            case 8: 
+//                if(!matriz.getValorMatriz(linha, coluna-1).estaOcupado())
+//                matriz.getValorMatriz(linha, coluna-1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+//                break;
+//            case 9: 
+//                if(rand.nextBoolean()){
+//                    if(!matriz.getValorMatriz(linha-1, coluna).estaOcupado())
+//                matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+//                }else{
+//                    if(!matriz.getValorMatriz(linha, coluna + 1).estaOcupado())
+//                matriz.getValorMatriz(linha, coluna+1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+//                }
+//                break;
+//            case 10: 
+//                if(rand.nextBoolean()){
+//                    if(!matriz.getValorMatriz(linha-1, coluna).estaOcupado())
+//                matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+//                }else{
+//                    if(!matriz.getValorMatriz(linha, coluna - 1).estaOcupado())
+//                matriz.getValorMatriz(linha, coluna-1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+//                }
+//                break;
+//            case 11: 
+//                if(rand.nextBoolean()){
+//                    if(!matriz.getValorMatriz(linha+1, coluna).estaOcupado())
+//                matriz.getValorMatriz(linha + 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+//                }else{
+//                    if(!matriz.getValorMatriz(linha, coluna + 1).estaOcupado())
+//                matriz.getValorMatriz(linha, coluna+1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+//                }
+//                break;
+//            case 12: 
+//                if(rand.nextBoolean()){
+//                    if(!matriz.getValorMatriz(linha+1, coluna).estaOcupado())
+//                matriz.getValorMatriz(linha + 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+//                }else{
+//                    if(!matriz.getValorMatriz(linha, coluna - 1).estaOcupado())
+//                matriz.getValorMatriz(linha, coluna-1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+//                }
+//                break;
+//        }
+//        
+        
     }
 
     private void spawnar() {

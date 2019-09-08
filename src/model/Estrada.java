@@ -34,4 +34,6 @@ public interface Estrada {
     boolean isEhCruzamento();
 
     void setEhCruzamento(boolean ehCruzamento);
+    public void reservar();
+    public void liberar();
 }
