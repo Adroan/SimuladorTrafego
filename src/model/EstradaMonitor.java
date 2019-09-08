@@ -74,7 +74,7 @@ public class EstradaMonitor implements Estrada {
     }
 
     @Override
-    public void reservar() {
+    public boolean reservar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
