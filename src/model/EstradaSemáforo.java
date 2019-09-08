@@ -7,6 +7,7 @@ package model;
 
 import java.io.File;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -155,16 +156,15 @@ public class EstradaSemáforo implements Estrada  {
         return "L=" + linha + "C=" + coluna + "Ca=" + carro + "I=" + item;
     }
     
-    public void reservar(){
+    public boolean reservar(){
+        boolean reservou = false;
         try {
             livre.acquire();
-            mutex.acquire();
+            reservou = mutex.tryAcquire(500,TimeUnit.MILLISECONDS);
         } catch (InterruptedException ex) {
             Logger.getLogger(EstradaSemáforo.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-        mutex.release();
-        ocupado.release();
         }
+        return reservou;
         
     }
     public void liberar(){

@@ -181,10 +181,37 @@ public class Carro extends Thread {
     }
     
     private void atravessarCruzamentoEsquerda(int qtdCasas){
+        List<Estrada> estradasParaMover = new ArrayList<>();
         switch(qtdCasas){
             case 1: 
-                matriz.getValorMatriz(linha+1, coluna).reservar(); //Como o primeiro bloco que cada carro tenta acessar é o ultimo dos outros,
-//precisa de um metodo separado pra mover no cruzamento se pa     //se ele não conseguiu o acquire, entao alguem ta andando.
+                estradasParaMover.add(matriz.getValorMatriz(linha+1, coluna)); break;
+            case 2:
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna-1));
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna-2)); break;
+            case 3:
+                estradasParaMover.add(matriz.getValorMatriz(linha-1, coluna));
+                estradasParaMover.add(matriz.getValorMatriz(linha-2, coluna));
+                estradasParaMover.add(matriz.getValorMatriz(linha-2, coluna-1)); break;                
+        }
+        boolean atravessou = false;
+        while(!atravessou){
+            boolean reservou = false;
+            int reservados = 0;
+            for(Estrada estrada : estradasParaMover){
+                try{
+                    reservou = estrada.reservar();
+                }catch(Exception ex){
+                    
+                }
+                if(!reservou){
+                    //Liberar geral em for
+                    break;
+                }
+                reservados++;
+            }
+            if(reservados == estradasParaMover.size()){
+                //Chama método para andar as 3 casas
+            }
         }
     }
     
