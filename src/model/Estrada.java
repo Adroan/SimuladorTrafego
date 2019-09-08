@@ -15,6 +15,7 @@ public interface Estrada {
 
     boolean addCarroEstrada(Carro carro);
     boolean spawnarCarroEstrada(Carro carro);
+    boolean addCarroCruzamento(Carro carro);
     Carro retirarCarroEstrada();
 
     int getLinha();

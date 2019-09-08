@@ -22,6 +22,7 @@ public class Carro extends Thread {
     private int linha;
     private int coluna;
     private int itemPosicao;
+    private int itemProximaPosicao;
     private double velocidade;
     private String nome;
     private Matriz matriz;
@@ -107,6 +108,7 @@ public class Carro extends Thread {
                 if (matriz.getValorMatriz(linha - 1, coluna).getItem() <= 4 && !matriz.getValorMatriz(linha - 1, coluna).estaOcupado()) {
                     matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 } else {
+                    itemProximaPosicao = matriz.getValorMatriz(linha - 1, coluna).getItem();
                     cruzamento();
                 }
                 break;
@@ -114,6 +116,7 @@ public class Carro extends Thread {
                 if (matriz.getValorMatriz(linha, coluna + 1).getItem() <= 4 && !matriz.getValorMatriz(linha, coluna + 1).estaOcupado()) {
                     matriz.getValorMatriz(linha, coluna + 1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 } else {
+                    itemProximaPosicao = matriz.getValorMatriz(linha, coluna+1).getItem();
                     cruzamento();
                 }
                 break;
@@ -121,6 +124,7 @@ public class Carro extends Thread {
                 if (matriz.getValorMatriz(linha + 1, coluna).getItem() <= 4 && !matriz.getValorMatriz(linha + 1, coluna).estaOcupado()) {
                     matriz.getValorMatriz(linha + 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 } else {
+                    itemProximaPosicao = matriz.getValorMatriz(linha + 1, coluna).getItem();
                     cruzamento();
                 }
                 break;
@@ -128,6 +132,7 @@ public class Carro extends Thread {
                 if (matriz.getValorMatriz(linha, coluna - 1).getItem() <= 4 && !matriz.getValorMatriz(linha, coluna - 1).estaOcupado()) {
                     matriz.getValorMatriz(linha, coluna - 1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 } else {
+                    itemProximaPosicao = matriz.getValorMatriz(linha, coluna-1).getItem();
                     cruzamento();
                 }
                 break;
@@ -159,22 +164,90 @@ public class Carro extends Thread {
 //tentativa 
     private void cruzamento() {
         List<Estrada> estradas = new ArrayList<>();
-        switch(itemPosicao){
+        Estrada selecionada;
+        switch(itemProximaPosicao){
             case 5:
                 estradas.add(matriz.getValorMatriz(linha-2, coluna-2)); // ir pra esquerda
                 estradas.add(matriz.getValorMatriz(linha-3, coluna)); // ir pra direita
-                Estrada selecionada = estradas.get(rand.nextInt(2));
-                if(selecionada.getClass() == estradas.get(0).getClass()){
+                selecionada = estradas.get(rand.nextInt(2));
+                if(selecionada.getItem() == estradas.get(0).getItem()){
                     atravessarCruzamentoEsquerda(3); //3 = numero de casas que vai andar
                 }else{
                     atravessarCruzamentoCima(2);
                 }
                 break;
-            case 2:
+            case 7:
+                estradas.add(matriz.getValorMatriz(linha+3, coluna)); // ir pra baixo
+                estradas.add(matriz.getValorMatriz(linha+2, coluna+2)); // ir pra direita
+                selecionada = estradas.get(rand.nextInt(2));
+                if(selecionada.getItem() == estradas.get(0).getItem()){
+                    atravessarCruzamentoBaixo(2); //3 = numero de casas que vai andar
+                }else{
+                    atravessarCruzamentoDireita(3);
+                }
                 break;
-            case 3:
+            case 8:
+                estradas.add(matriz.getValorMatriz(linha, coluna-3)); // ir pra esquerda
+                estradas.add(matriz.getValorMatriz(linha+2, coluna-2)); // ir pra baixo
+                selecionada = estradas.get(rand.nextInt(2));
+                if(selecionada.getItem() == estradas.get(0).getItem()){
+                    atravessarCruzamentoEsquerda(2); //3 = numero de casas que vai andar
+                }else{
+                    atravessarCruzamentoBaixo(3);
+                }
                 break;
-            case 4:
+            case 9:
+                estradas.add(matriz.getValorMatriz(linha-2, coluna-2)); // ir pra esquerda
+                estradas.add(matriz.getValorMatriz(linha-3, coluna)); // ir pra cima
+                estradas.add(matriz.getValorMatriz(linha-1, coluna+1)); // ir pra direita
+                selecionada = estradas.get(rand.nextInt(3));
+                if(selecionada.getItem() == estradas.get(0).getItem()){
+                    atravessarCruzamentoEsquerda(3); //3 = numero de casas que vai andar
+                }else if(selecionada.getItem() == estradas.get(0).getItem()){
+                    atravessarCruzamentoCima(2);
+                }else{
+                    atravessarCruzamentoDireita(1);
+                }
+                break;
+            case 10:
+                estradas.add(matriz.getValorMatriz(linha+2, coluna-2)); // ir pra baixo
+                estradas.add(matriz.getValorMatriz(linha, coluna-3)); // ir pra esquerda
+                estradas.add(matriz.getValorMatriz(linha-1, coluna-1)); // ir pra cima
+                selecionada = estradas.get(rand.nextInt(3));
+                if(selecionada.getItem() == estradas.get(0).getItem()){
+                    atravessarCruzamentoBaixo(3); //3 = numero de casas que vai andar
+                }else if(selecionada.getItem() == estradas.get(1).getItem()){
+                    atravessarCruzamentoEsquerda(2);
+                }else{
+                    atravessarCruzamentoCima(1);
+                }
+                break;
+                           
+            case 11:
+                estradas.add(matriz.getValorMatriz(linha-2, coluna+2)); // ir pra cima
+                estradas.add(matriz.getValorMatriz(linha, coluna+3)); // ir pra direita
+                estradas.add(matriz.getValorMatriz(linha+1, coluna+1)); // ir pra baixo
+                selecionada = estradas.get(rand.nextInt(3));
+                if(selecionada.getItem() == estradas.get(0).getItem()){
+                    atravessarCruzamentoCima(3); //3 = numero de casas que vai andar
+                }else if(selecionada.getItem() == estradas.get(1).getItem()){
+                    atravessarCruzamentoDireita(2);
+                }else{
+                    atravessarCruzamentoBaixo(1);
+                }
+                break;
+            case 12:
+                estradas.add(matriz.getValorMatriz(linha+1, coluna-1)); // ir pra esquerda
+                estradas.add(matriz.getValorMatriz(linha+3, coluna)); // ir pra baixo
+                estradas.add(matriz.getValorMatriz(linha+2, coluna+2)); // ir pra direita
+                selecionada = estradas.get(rand.nextInt(3));
+                if(selecionada.getItem() == estradas.get(0).getItem()){
+                    atravessarCruzamentoEsquerda(1); //3 = numero de casas que vai andar
+                }else if(selecionada.getItem() == estradas.get(1).getItem()){
+                    atravessarCruzamentoBaixo(2);
+                }else{
+                    atravessarCruzamentoDireita(3);
+                }
                 break;
             
         }              
@@ -196,7 +269,7 @@ public class Carro extends Thread {
         boolean atravessou = false;
         while(!atravessou){
             boolean reservou = false;
-            int reservados = 0;
+            List<Estrada> estradasReservadas = new ArrayList<>();
             for(Estrada estrada : estradasParaMover){
                 try{
                     reservou = estrada.reservar();
@@ -205,26 +278,199 @@ public class Carro extends Thread {
                 }
                 if(!reservou){
                     //Liberar geral em for
+                    for(Estrada estradaRemover : estradasReservadas){
+                        estradaRemover.liberar();
+                    }
+                    try {
+                        sleep((long) velocidade);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     break;
                 }
-                reservados++;
+                estradasReservadas.add(estrada);
+                reservou = false;
             }
-            if(reservados == estradasParaMover.size()){
-                //Chama método para andar as 3 casas
+            if (estradasReservadas.size() == estradasParaMover.size()) {
+                for (Estrada estradaAdicionar : estradasReservadas) {
+                    matriz.getValorMatriz(estradaAdicionar.getLinha(), estradaAdicionar.getColuna()).addCarroCruzamento(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+                    try {
+                        sleep((long) velocidade);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    Gerenciador ger = Gerenciador.getInstance();
+                    ger.notificarEstradaAlterada();
+                }
             }
+           matriz.getValorMatriz(estradasReservadas.get(estradasReservadas.size()-1).getLinha(), estradasReservadas.get(estradasReservadas.size()-1).getColuna()-1).addCarroCruzamento(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+           atravessou = true;
         }
     }
     
     private void atravessarCruzamentoDireita(int qtdCasas){
-        
+        List<Estrada> estradasParaMover = new ArrayList<>();
+        switch(qtdCasas){
+            case 1: 
+                estradasParaMover.add(matriz.getValorMatriz(linha-1, coluna+1)); break;
+            case 2:
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna+1));
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna+2)); break;
+            case 3:
+                estradasParaMover.add(matriz.getValorMatriz(linha+1, coluna));
+                estradasParaMover.add(matriz.getValorMatriz(linha+2, coluna));
+                estradasParaMover.add(matriz.getValorMatriz(linha+2, coluna+1)); break;                
+        }
+        boolean atravessou = false;
+        while(!atravessou){
+            boolean reservou = false;
+            List<Estrada> estradasReservadas = new ArrayList<>();
+            for(Estrada estrada : estradasParaMover){
+                try{
+                    reservou = estrada.reservar();
+                }catch(Exception ex){
+                    
+                }
+                if(!reservou){
+                    //Liberar geral em for
+                    for(Estrada estradaRemover : estradasReservadas){
+                        estradaRemover.liberar();
+                    }
+                    try {
+                        sleep((long) velocidade);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                }
+                estradasReservadas.add(estrada);
+                reservou = false;
+            }
+            if (estradasReservadas.size() == estradasParaMover.size()) {
+                for (Estrada estradaAdicionar : estradasReservadas) {
+                    matriz.getValorMatriz(estradaAdicionar.getLinha(), estradaAdicionar.getColuna()).addCarroCruzamento(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+                    try {
+                        sleep((long) velocidade);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    Gerenciador ger = Gerenciador.getInstance();
+                    ger.notificarEstradaAlterada();
+                }
+            }
+           matriz.getValorMatriz(estradasReservadas.get(estradasReservadas.size()-1).getLinha(), estradasReservadas.get(estradasReservadas.size()-1).getColuna()+1).addCarroCruzamento(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+           atravessou = true;
+        }
     }
     
     private void atravessarCruzamentoBaixo(int qtdCasas){
-        
+        List<Estrada> estradasParaMover = new ArrayList<>();
+        switch(qtdCasas){
+            case 1: 
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna+1)); break;
+            case 2:
+                estradasParaMover.add(matriz.getValorMatriz(linha+1, coluna));
+                estradasParaMover.add(matriz.getValorMatriz(linha+2, coluna)); break;
+            case 3:
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna-1));
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna-2));
+                estradasParaMover.add(matriz.getValorMatriz(linha+1, coluna-2)); break;                
+        }
+        boolean atravessou = false;
+        while(!atravessou){
+            boolean reservou = false;
+            List<Estrada> estradasReservadas = new ArrayList<>();
+            for(Estrada estrada : estradasParaMover){
+                try{
+                    reservou = estrada.reservar();
+                }catch(Exception ex){
+                    
+                }
+                if(!reservou){
+                    //Liberar geral em for
+                    for(Estrada estradaRemover : estradasReservadas){
+                        estradaRemover.liberar();
+                    }
+                    try {
+                        sleep((long) velocidade);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                }
+                estradasReservadas.add(estrada);
+                reservou = false;
+            }
+            if (estradasReservadas.size() == estradasParaMover.size()) {
+                for (Estrada estradaAdicionar : estradasReservadas) {
+                    matriz.getValorMatriz(estradaAdicionar.getLinha(), estradaAdicionar.getColuna()).addCarroCruzamento(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+                    try {
+                        sleep((long) velocidade);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    Gerenciador ger = Gerenciador.getInstance();
+                    ger.notificarEstradaAlterada();
+                }
+            }
+           matriz.getValorMatriz(estradasReservadas.get(estradasReservadas.size()-1).getLinha()+1, estradasReservadas.get(estradasReservadas.size()-1).getColuna()).addCarroCruzamento(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+           atravessou = true;
+        }
     }
     
     private void atravessarCruzamentoCima(int qtdCasas){
-        
+        List<Estrada> estradasParaMover = new ArrayList<>();
+        switch(qtdCasas){
+            case 1: 
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna-1)); break;
+            case 2:
+                estradasParaMover.add(matriz.getValorMatriz(linha-1, coluna));
+                estradasParaMover.add(matriz.getValorMatriz(linha-2, coluna)); break;
+            case 3:
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna+1));
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna+2));
+                estradasParaMover.add(matriz.getValorMatriz(linha-1, coluna+2)); break;                
+        }
+        boolean atravessou = false;
+        while(!atravessou){
+            boolean reservou = false;
+            List<Estrada> estradasReservadas = new ArrayList<>();
+            for(Estrada estrada : estradasParaMover){
+                try{
+                    reservou = estrada.reservar();
+                }catch(Exception ex){
+                    
+                }
+                if(!reservou){
+                    //Liberar geral em for
+                    for(Estrada estradaRemover : estradasReservadas){
+                        estradaRemover.liberar();
+                    }
+                    try {
+                        sleep((long) velocidade);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                }
+                estradasReservadas.add(estrada);
+                reservou = false;
+            }
+            if (estradasReservadas.size() == estradasParaMover.size()) {
+                for (Estrada estradaAdicionar : estradasReservadas) {
+                    matriz.getValorMatriz(estradaAdicionar.getLinha(), estradaAdicionar.getColuna()).addCarroCruzamento(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+                    try {
+                        sleep((long) velocidade);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    Gerenciador ger = Gerenciador.getInstance();
+                    ger.notificarEstradaAlterada();
+                }
+            }
+           matriz.getValorMatriz(estradasReservadas.get(estradasReservadas.size()-1).getLinha()-1, estradasReservadas.get(estradasReservadas.size()-1).getColuna()).addCarroCruzamento(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+           atravessou = true;
+        }
     }
 
     private void spawnar() {
