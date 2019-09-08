@@ -101,45 +101,57 @@ public class Carro extends Thread {
         this.velocidade = velocidade;
     }
     
-    
+    public void verificarProxPosicao(int linha, int coluna){
+        try{
+            itemProximaPosicao = matriz.getValorMatriz(linha, coluna).getItem();
+        }catch(ArrayIndexOutOfBoundsException ex){
+            matriz.getValorMatriz(this.linha, this.coluna).retirarCarroEstrada();
+            this.vivo = false;
+        }
+    }
 
     public void andar() {
         switch (itemPosicao) {
             case 1:
+                verificarProxPosicao(linha - 1, coluna);
+                if(vivo){
                 if (matriz.getValorMatriz(linha - 1, coluna).getItem() <= 4 && !matriz.getValorMatriz(linha - 1, coluna).estaOcupado()) {
                     matriz.getValorMatriz(linha - 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-                } else {
-                    itemProximaPosicao = matriz.getValorMatriz(linha - 1, coluna).getItem();
-                    cruzamento();
+                } else {                   
+                        cruzamento();
+                    }                   
                 }
                 break;
             case 2:
-                if (matriz.getValorMatriz(linha, coluna + 1).getItem() <= 4 && !matriz.getValorMatriz(linha, coluna + 1).estaOcupado()) {
-                    matriz.getValorMatriz(linha, coluna + 1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-                } else {
-                    itemProximaPosicao = matriz.getValorMatriz(linha, coluna+1).getItem();
-                    cruzamento();
+                verificarProxPosicao(linha, coluna + 1);
+                if (vivo) {
+                    if (matriz.getValorMatriz(linha, coluna + 1).getItem() <= 4 && !matriz.getValorMatriz(linha, coluna + 1).estaOcupado()) {
+                        matriz.getValorMatriz(linha, coluna + 1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
+                    } else {
+                        cruzamento();
+                    }
                 }
                 break;
             case 3:
+                verificarProxPosicao(linha + 1, coluna);
+                if(vivo){
                 if (matriz.getValorMatriz(linha + 1, coluna).getItem() <= 4 && !matriz.getValorMatriz(linha + 1, coluna).estaOcupado()) {
                     matriz.getValorMatriz(linha + 1, coluna).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
                 } else {
-                    itemProximaPosicao = matriz.getValorMatriz(linha + 1, coluna).getItem();
-                    cruzamento();
+                        cruzamento();
+                }
                 }
                 break;
             case 4:
+                verificarProxPosicao(linha, coluna-1);
+                if(vivo){
                 if (matriz.getValorMatriz(linha, coluna - 1).getItem() <= 4 && !matriz.getValorMatriz(linha, coluna - 1).estaOcupado()) {
                     matriz.getValorMatriz(linha, coluna - 1).addCarroEstrada(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
-                } else {
-                    itemProximaPosicao = matriz.getValorMatriz(linha, coluna-1).getItem();
-                    cruzamento();
+                } else {                                      
+                    cruzamento();                   
+                }
                 }
                 break;
-                
-                default: matriz.getValorMatriz(linha, coluna).retirarCarroEstrada();
-                        vivo = false;
                 
         }
     }

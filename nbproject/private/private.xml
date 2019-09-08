@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/controler/CriadorDeCarros.java</file>
-            <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/view/SimuladorTrafego.java</file>
-            <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/model/Carro.java</file>
-            <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/model/EstradaMonitor.java</file>
-            <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/controler/Gerenciador.java</file>
-            <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/controler/Leitor.java</file>
-            <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/model/EstradaSemáforo.java</file>
-            <file>file:/C:/Users/Jogos/Documents/GitHub/SimuladorTrafego/src/model/Estrada.java</file>
+            <file>file:/C:/Users/vinny/OneDrive/Documentos/NetBeansProjects/SimuladorTrafego/src/view/SimuladorTrafego.java</file>
+            <file>file:/C:/Users/vinny/OneDrive/Documentos/NetBeansProjects/SimuladorTrafego/src/model/Carro.java</file>
+            <file>file:/C:/Users/vinny/OneDrive/Documentos/NetBeansProjects/SimuladorTrafego/src/model/EstradaMonitor.java</file>
+            <file>file:/C:/Users/vinny/OneDrive/Documentos/NetBeansProjects/SimuladorTrafego/src/model/Estrada.java</file>
         </group>
     </open-files>
 </project-private>
