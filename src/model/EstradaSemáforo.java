@@ -69,6 +69,7 @@ public class EstradaSemáforo implements Estrada  {
     public boolean addCarroCruzamento(Carro carro) {
         boolean adicionou  = false;
         try {
+            mutex.acquire();
             this.imagem = new ImageIcon("assets/" + carro.getNome()+imagemBase.replace("assets/", ""));
             carro.setColuna(this.coluna);
             carro.setLinha(this.linha);
@@ -176,18 +177,15 @@ public class EstradaSemáforo implements Estrada  {
     }
     
     public boolean reservar(){
-        boolean reservou = false;
         try {
-            livre.acquire();
-            reservou = mutex.tryAcquire(500, TimeUnit.MILLISECONDS);          
+            return livre.tryAcquire(500, TimeUnit.MILLISECONDS);
         } catch (InterruptedException ex) {
             Logger.getLogger(EstradaSemáforo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return reservou;
+        return false;
         
     }
     public void liberar(){
-        mutex.release();
         livre.release();
     }
 

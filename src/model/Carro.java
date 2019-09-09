@@ -56,7 +56,7 @@ public class Carro extends Thread {
             }
             
             try {
-                sleep((long) velocidade);
+                sleep(rand.nextInt(1000));
             } catch (InterruptedException ex) {
                 Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -285,6 +285,7 @@ public class Carro extends Thread {
     }
     
     private void atravessarCruzamentoEsquerda(int qtdCasas){
+        System.out.println("Carro " + this.nome + "tentou ir pra esquerda");
         List<Estrada> estradasParaMover = new ArrayList<>();
         switch(qtdCasas){
             case 1: 
@@ -316,11 +317,12 @@ public class Carro extends Thread {
                         
                         estradaRemover.liberar();
                     }
-                    try {
-                        sleep(rand.nextInt(2000));
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    estradasReservadas.clear();
+//                    try {
+//                        sleep(rand.nextInt(2000));
+//                    } catch (InterruptedException ex) {
+//                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
                     break;
                 }else{
                     estradasReservadas.add(estrada);
@@ -345,6 +347,7 @@ public class Carro extends Thread {
     }
     
     private void atravessarCruzamentoDireita(int qtdCasas){
+        System.out.println("Carro " + this.nome + "tentou ir pra direita");
         List<Estrada> estradasParaMover = new ArrayList<>();
         switch(qtdCasas){
             case 1: 
@@ -374,11 +377,12 @@ public class Carro extends Thread {
                     for(Estrada estradaRemover : estradasReservadas){
                         estradaRemover.liberar();
                     }
-                    try {
-                        sleep(rand.nextInt(2000));
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    estradasReservadas.clear();
+//                    try {
+//                        sleep(rand.nextInt(2000));
+//                    } catch (InterruptedException ex) {
+//                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
                     break;
                 }else{
                     estradasReservadas.add(estrada);
@@ -403,6 +407,7 @@ public class Carro extends Thread {
     }
     
     private void atravessarCruzamentoBaixo(int qtdCasas){
+        System.out.println("Carro " + this.nome + "tentou ir pra baixo");
         List<Estrada> estradasParaMover = new ArrayList<>();
         switch(qtdCasas){
             case 1: 
@@ -432,11 +437,12 @@ public class Carro extends Thread {
                     for(Estrada estradaRemover : estradasReservadas){
                         estradaRemover.liberar();
                     }
-                    try {
-                        sleep(rand.nextInt(2000));
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    estradasReservadas.clear();
+//                    try {
+//                        sleep(rand.nextInt(2000));
+//                    } catch (InterruptedException ex) {
+//                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
                     break;
                 }else{
                     estradasReservadas.add(estrada);
@@ -461,6 +467,7 @@ public class Carro extends Thread {
     }
     
     private void atravessarCruzamentoCima(int qtdCasas){
+        System.out.println("Carro " + this.nome + " tentou ir pra cima");
         List<Estrada> estradasParaMover = new ArrayList<>();
         switch(qtdCasas){
             case 1: 
@@ -490,11 +497,12 @@ public class Carro extends Thread {
                     for(Estrada estradaRemover : estradasReservadas){
                         estradaRemover.liberar();
                     }
-                    try {
-                        sleep(rand.nextInt(2000));
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    estradasReservadas.clear();
+//                    try {
+//                        sleep(rand.nextInt(2000));
+//                    } catch (InterruptedException ex) {
+//                        Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
                     break;
                 }else{
                     estradasReservadas.add(estrada);
