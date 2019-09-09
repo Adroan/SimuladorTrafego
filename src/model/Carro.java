@@ -375,7 +375,7 @@ public class Carro extends Thread {
                         estradaRemover.liberar();
                     }
                     try {
-                        sleep((long) velocidade * 4);
+                        sleep((long) velocidade * 3);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -434,7 +434,7 @@ public class Carro extends Thread {
                         estradaRemover.liberar();
                     }
                     try {
-                        sleep((long) velocidade * 4);
+                        sleep((long) velocidade * 2);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
                     }
