@@ -27,14 +27,14 @@ public class EstradaMonitor implements Estrada {
     private boolean reservou;
 
     public EstradaMonitor(int linha, int coluna, int item,Carro carro, boolean ehCruzamento, String imagem) {
-        this.imagemBase = imagem;
+        this.imagem = new ImageIcon(imagem);
         this.linha = linha;
         this.coluna = coluna;
         this.item = item;
         this.ehCruzamento = ehCruzamento;
         this.carro = carro;
         this.reservou= false;
-        
+        this.imagemBase = imagem;
     }
 
     

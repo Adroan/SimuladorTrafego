@@ -11,7 +11,7 @@ import java.util.Scanner;
 import javax.swing.ImageIcon;
 import model.Estrada;
 import model.EstradaMonitor;
-import model.EstradaSemáforo;
+import model.EstradaSemaforo;
 import model.Matriz;
 
 /**
@@ -36,11 +36,11 @@ public class Leitor {
             for (int j = 0; j < coluna; j++) {
                 int valor = Integer.parseInt(in.next().trim());
                 if (valor == 5 || valor == 6 || valor == 7 || valor == 8 || valor == 9 || valor == 10 || valor == 11 || valor == 12) {
-                    matriz.setValorMatriz(i, j, new EstradaSemáforo(i, j, valor, null, true, "assets/cruzamento.png"));
+                    matriz.setValorMatriz(i, j, new EstradaSemaforo(i, j, valor, null, true, "assets/cruzamento.png"));
                 } else if (valor != 0) {
-                    matriz.setValorMatriz(i, j, new EstradaSemáforo(i, j, valor, null, false, "assets/estrada" + valor + ".png"));
+                    matriz.setValorMatriz(i, j, new EstradaSemaforo(i, j, valor, null, false, "assets/estrada" + valor + ".png"));
                 } else {
-                    matriz.setValorMatriz(i, j, new EstradaSemáforo(i, j, valor, null, false, "assets/grama.png"));
+                    matriz.setValorMatriz(i, j, new EstradaSemaforo(i, j, valor, null, false, "assets/grama.png"));
                 }
                 try {
                     if (matriz.getValorMatriz(i, j).getItem() == 1 && matriz.getValorMatriz(i, j - 1).getItem() == 2 || matriz.getValorMatriz(i, j).getItem() == 2 && matriz.getValorMatriz(i - 1, j).getItem() == 3) {

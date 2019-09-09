@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
  *
  * @author Adroan
  */
-public class EstradaSemáforo implements Estrada  {
+public class EstradaSemaforo implements Estrada  {
     private final String imagemBase;
     private int linha;
     private int coluna;
@@ -29,7 +29,7 @@ public class EstradaSemáforo implements Estrada  {
     private Semaphore livre;
 
 
-    public EstradaSemáforo(int linha, int coluna, int item,Carro carro, boolean ehCruzamento, String imagem) {
+    public EstradaSemaforo(int linha, int coluna, int item,Carro carro, boolean ehCruzamento, String imagem) {
         this.linha = linha;
         this.coluna = coluna;
         this.item = item;
@@ -180,7 +180,7 @@ public class EstradaSemáforo implements Estrada  {
         try {
             return livre.tryAcquire(500, TimeUnit.MILLISECONDS);
         } catch (InterruptedException ex) {
-            Logger.getLogger(EstradaSemáforo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EstradaSemaforo.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
         
