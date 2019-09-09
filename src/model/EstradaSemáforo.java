@@ -49,14 +49,13 @@ public class EstradaSemáforo implements Estrada  {
             
             livre.acquire();
             mutex.acquire();
-            if(!estaOcupado()){
             this.imagem = new ImageIcon("assets/" + carro.getNome()+imagemBase.replace("assets/", ""));
             carro.setColuna(this.coluna);
             carro.setLinha(this.linha);
             carro.setItemPosicao(this.item);
             this.carro = carro;
             adicionou = true;
-            }
+            
         } catch (InterruptedException e) {
             System.out.println("Semaforo mutex ou livre interrompido, abortado");
             e.printStackTrace();
@@ -70,14 +69,13 @@ public class EstradaSemáforo implements Estrada  {
     public boolean addCarroCruzamento(Carro carro) {
         boolean adicionou  = false;
         try {
-            if(!estaOcupado()){
             this.imagem = new ImageIcon("assets/" + carro.getNome()+imagemBase.replace("assets/", ""));
             carro.setColuna(this.coluna);
             carro.setLinha(this.linha);
             carro.setItemPosicao(this.item);
             this.carro = carro;
             adicionou = true;
-            }
+            
         } catch (Exception e) {
             System.out.println("Semaforo mutex ou livre interrompido, abortado");
             e.printStackTrace();
@@ -181,8 +179,7 @@ public class EstradaSemáforo implements Estrada  {
         boolean reservou = false;
         try {
             livre.acquire();
-            mutex.acquire();
-            reservou = true;
+            reservou = mutex.tryAcquire(500, TimeUnit.MILLISECONDS);          
         } catch (InterruptedException ex) {
             Logger.getLogger(EstradaSemáforo.class.getName()).log(Level.SEVERE, null, ex);
         }

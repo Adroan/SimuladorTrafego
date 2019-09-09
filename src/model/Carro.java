@@ -8,6 +8,7 @@ package model;
 import controler.CriadorDeCarros;
 import controler.Gerenciador;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
@@ -301,7 +302,6 @@ public class Carro extends Thread {
                 estradasParaMover.add(matriz.getValorMatriz(linha-2, coluna-2)); break;                
         }
         boolean atravessou = false;
-        while(!atravessou){
             boolean reservou = false;
             List<Estrada> estradasReservadas = new ArrayList<>();
             for(Estrada estrada : estradasParaMover){
@@ -313,10 +313,11 @@ public class Carro extends Thread {
                 if(!reservou){
                     //Liberar geral em for
                     for(Estrada estradaRemover : estradasReservadas){
+                        
                         estradaRemover.liberar();
                     }
                     try {
-                        sleep((long) velocidade * 4);
+                        sleep(rand.nextInt(2000));
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -340,7 +341,7 @@ public class Carro extends Thread {
                 }
             }
            atravessou = true;
-        }
+        
     }
     
     private void atravessarCruzamentoDireita(int qtdCasas){
@@ -360,7 +361,6 @@ public class Carro extends Thread {
                 estradasParaMover.add(matriz.getValorMatriz(linha+2, coluna+2)); break;
         }
         boolean atravessou = false;
-        while(!atravessou){
             boolean reservou = false;
             List<Estrada> estradasReservadas = new ArrayList<>();
             for(Estrada estrada : estradasParaMover){
@@ -375,7 +375,7 @@ public class Carro extends Thread {
                         estradaRemover.liberar();
                     }
                     try {
-                        sleep((long) velocidade * 3);
+                        sleep(rand.nextInt(2000));
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -399,7 +399,7 @@ public class Carro extends Thread {
                 }
             }
            atravessou = true;
-        }
+        
     }
     
     private void atravessarCruzamentoBaixo(int qtdCasas){
@@ -419,7 +419,6 @@ public class Carro extends Thread {
                 estradasParaMover.add(matriz.getValorMatriz(linha+2, coluna-2)); break;
         }
         boolean atravessou = false;
-        while(!atravessou){
             boolean reservou = false;
             List<Estrada> estradasReservadas = new ArrayList<>();
             for(Estrada estrada : estradasParaMover){
@@ -434,7 +433,7 @@ public class Carro extends Thread {
                         estradaRemover.liberar();
                     }
                     try {
-                        sleep((long) velocidade * 2);
+                        sleep(rand.nextInt(2000));
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -458,7 +457,7 @@ public class Carro extends Thread {
                 }
             }
            atravessou = true;
-        }
+        
     }
     
     private void atravessarCruzamentoCima(int qtdCasas){
@@ -478,7 +477,6 @@ public class Carro extends Thread {
                 estradasParaMover.add(matriz.getValorMatriz(linha-2, coluna+2)); break;                
         }
         boolean atravessou = false;
-        while(!atravessou){
             boolean reservou = false;
             List<Estrada> estradasReservadas = new ArrayList<>();
             for(Estrada estrada : estradasParaMover){
@@ -493,7 +491,7 @@ public class Carro extends Thread {
                         estradaRemover.liberar();
                     }
                     try {
-                        sleep((long) velocidade * 4);
+                        sleep(rand.nextInt(2000));
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -517,7 +515,6 @@ public class Carro extends Thread {
                 }
             }
            atravessou = true;
-        }
     }
 
     private void spawnar() {
