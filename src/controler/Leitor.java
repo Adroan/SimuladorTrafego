@@ -45,10 +45,14 @@ public class Leitor {
                 try {
                     if (matriz.getValorMatriz(i, j).getItem() == 1 && matriz.getValorMatriz(i, j - 1).getItem() == 2 || matriz.getValorMatriz(i, j).getItem() == 2 && matriz.getValorMatriz(i - 1, j).getItem() == 3) {
                         matriz.getValorMatriz(i, j).setImagem(new ImageIcon("assets/curva.png"));
+                        matriz.getValorMatriz(i, j).setImagemBase("assets/curva.png");
+                        
                     }else if( matriz.getValorMatriz(i, j).getItem() == 4 && matriz.getValorMatriz(i, j - 1).getItem() == 3){
                         matriz.getValorMatriz(i, j-1).setImagem(new ImageIcon("assets/curva.png"));
+                        matriz.getValorMatriz(i, j-1).setImagemBase("assets/curva.png");
                     }else if(matriz.getValorMatriz(i, j).getItem() == 1 && matriz.getValorMatriz(i-1, j).getItem() == 4){
                         matriz.getValorMatriz(i-1, j).setImagem(new ImageIcon("assets/curva.png"));
+                        matriz.getValorMatriz(i-1, j).setImagemBase("assets/curva.png");
                     }
                 } catch (Exception e) {
                     
@@ -70,10 +74,13 @@ public class Leitor {
                 try {
                     if (matriz.getValorMatriz(i, j).getItem() == 1 && matriz.getValorMatriz(i, j - 1).getItem() == 2 || matriz.getValorMatriz(i, j).getItem() == 2 && matriz.getValorMatriz(i - 1, j).getItem() == 3) {
                         matriz.getValorMatriz(i, j).setImagem(new ImageIcon("assets/curva.png"));
+                        matriz.getValorMatriz(i, j).setImagemBase("assets/curva.png");
                     }else if( matriz.getValorMatriz(i, j).getItem() == 4 && matriz.getValorMatriz(i, j - 1).getItem() == 3){
                         matriz.getValorMatriz(i, j-1).setImagem(new ImageIcon("assets/curva.png"));
+                        matriz.getValorMatriz(i, j-1).setImagemBase("assets/curva.png");
                     }else if(matriz.getValorMatriz(i, j).getItem() == 1 && matriz.getValorMatriz(i-1, j).getItem() == 4){
                         matriz.getValorMatriz(i-1, j).setImagem(new ImageIcon("assets/curva.png"));
+                        matriz.getValorMatriz(i-1, j).setImagemBase("assets/curva.png");
                     }
                 } catch (Exception e) {
                     

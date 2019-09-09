@@ -33,6 +33,8 @@ public interface Estrada {
     boolean estaOcupado();
 
     boolean isEhCruzamento();
+    
+    void setImagemBase(String imagem);
 
     void setEhCruzamento(boolean ehCruzamento);
     public boolean reservar();

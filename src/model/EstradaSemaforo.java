@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
  * @author Adroan
  */
 public class EstradaSemaforo implements Estrada  {
-    private final String imagemBase;
+    private String imagemBase;
     private int linha;
     private int coluna;
     private int item;
@@ -170,6 +170,11 @@ public class EstradaSemaforo implements Estrada  {
     public void setEhCruzamento(boolean ehCruzamento) {
         this.ehCruzamento = ehCruzamento;
     }
+
+    public void setImagemBase(String imagemBase) {
+        this.imagemBase = imagemBase;
+    }
+    
 
     @Override
     public String toString() {
