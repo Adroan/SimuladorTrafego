@@ -48,10 +48,10 @@ public class Gerenciador {
         observadores.add(obs);
     }
 
-    public void lerMatriz() {
+    public void lerMatriz(int modo) {
         try {
             leitor = new Leitor();
-            leitor.lerMatriz(arquivo);
+            leitor.lerMatriz(arquivo,modo);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -102,13 +102,10 @@ public class Gerenciador {
         this.quantidadeDeCarros = qtdCarros;
         this.intervaloInsercao = intervalo;
         this.modo = modo;
-
-        if (modo == 1) {
-            //Cria com semaforo
-        } else {
-            //Cria com monitor
-        }
-
+            matriz.setMatriz(null);
+            lerMatriz(modo);
+       
+            notificarEstradaAlterada();
         if (intervaloInsercao == 0) {
             intervaloInsercao = 700;
         }       

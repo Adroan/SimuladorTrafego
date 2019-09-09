@@ -78,7 +78,7 @@ public class SimuladorTrafego extends JFrame implements ActionListener, Observer
         getContentPane().setLayout(new BorderLayout());
         gerenciador = Gerenciador.getInstance();
         this.gerenciador.escolherMatriz(JOptionPane.showOptionDialog(rootPane, "Escolha a forma da estrada", "FORMA DA ESTRADA", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, gerenciador.getTiposEstrada(), null)); // Vai mudar e receber novas formas de inicio(Builder)       
-        gerenciador.lerMatriz();
+        gerenciador.lerMatriz(1);
         gerenciador.addObservador(this);
         initComponents();
 
@@ -193,7 +193,7 @@ public class SimuladorTrafego extends JFrame implements ActionListener, Observer
                             intervalo = intervalo / 0;
                         }
                     } catch (Exception exe) {
-                        JOptionPane.showMessageDialog(rootPane, "Intervalo inválido");
+                        JOptionPane.showMessageDialog(rootPane, "Intervalo invÃ¡lido");
                         entrouCatch = true;
                     }
 
@@ -208,7 +208,7 @@ public class SimuladorTrafego extends JFrame implements ActionListener, Observer
                 gerenciador.iniciarSimulacao(qtdCarro, intervalo, modo);
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(rootPane, "Quantidade de carros inválida");
+                JOptionPane.showMessageDialog(rootPane, "Quantidade de carros invÃ¡lida");
             }
         }
         if (e.getSource() == jbEncerrar) {

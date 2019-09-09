@@ -1,10 +1,15 @@
+package model;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
 
+
+import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -12,80 +17,163 @@ import javax.swing.ImageIcon;
  * @author Adroan
  */
 public class EstradaMonitor implements Estrada {
+    private final String imagemBase;
+    private int linha;
+    private int coluna;
+    private int item;
+    private boolean ehCruzamento;
+    private Carro carro;
+    private ImageIcon imagem;
+    private boolean reservou;
 
-    @Override
-    public boolean addCarroEstrada(Carro carro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public EstradaMonitor(int linha, int coluna, int item,Carro carro, boolean ehCruzamento, String imagem) {
+        this.imagemBase = imagem;
+        this.linha = linha;
+        this.coluna = coluna;
+        this.item = item;
+        this.ehCruzamento = ehCruzamento;
+        this.carro = carro;
+        this.reservou= false;
+        
     }
 
+    
+    
+
+    
+    public synchronized boolean addCarroEstrada(Carro carro) {
+        boolean adicionou  = false;
+        try {
+            
+          
+            if(!estaOcupado()){
+            this.imagem = new ImageIcon("assets/" + carro.getNome()+imagemBase.replace("assets/", ""));
+            carro.setColuna(this.coluna);
+            carro.setLinha(this.linha);
+            carro.setItemPosicao(this.item);
+            this.carro = carro;
+            adicionou = true;
+            }
+        } catch (Exception e) {
+            System.out.println("Monitor interrompido, abortado");
+            e.printStackTrace();
+        } 
+        return adicionou;
+    }
+    
+    public synchronized boolean addCarroCruzamento(Carro carro) {
+        boolean adicionou  = false;
+        try {
+            if(!estaOcupado()){
+            this.imagem = new ImageIcon("assets/" + carro.getNome()+imagemBase.replace("assets/", ""));
+            carro.setColuna(this.coluna);
+            carro.setLinha(this.linha);
+            carro.setItemPosicao(this.item);
+            this.carro = carro;
+            adicionou = true;
+            }
+        } catch (Exception e) {
+            System.out.println("Semaforo mutex ou livre interrompido, abortado");
+            e.printStackTrace();
+        } 
+        return adicionou;
+    }
+    
     @Override
-    public Carro retirarCarroEstrada() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean spawnarCarroEstrada(Carro carro){
+        boolean adicionou  = false;        
+            try {
+                if (!estaOcupado()) {
+                    this.imagem = new ImageIcon("assets/" + carro.getNome() + imagemBase.replace("assets/", ""));
+                    carro.setColuna(this.coluna);
+                    carro.setLinha(this.linha);
+                    carro.setItemPosicao(this.item);
+                    this.carro = carro;
+                    adicionou = true;
+            }else{
+                   Thread.sleep(200);
+                }
+           
+        } catch (InterruptedException e) {
+            System.out.println("Semaforo mutex ou livre interrompido, abortado");
+            e.printStackTrace();
+        }
+            return adicionou;
+        }
+    
+
+
+    public synchronized Carro retirarCarroEstrada() {
+        Carro aux = null;
+        try {
+            
+            aux = carro;
+            this.carro = null;
+            this.imagem = new ImageIcon(imagemBase);
+        } catch (Exception e) {
+            System.out.println("Semaforo mutex ou livre interrompidos, abortado");
+            e.printStackTrace();
+            return null;
+        }
+        return aux;
     }
 
-    @Override
-    public int getLinha() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public  int getLinha(){
+        return linha;
     }
 
-    @Override
     public int getColuna() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return coluna;
     }
 
-    @Override
     public int getItem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return item;
     }
 
-    @Override
     public ImageIcon getImagem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return imagem;
     }
 
-    @Override
     public void setImagem(ImageIcon imagem) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.imagem = imagem;
     }
 
-    @Override
     public Carro getCarro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return carro;
     }
 
-    @Override
     public boolean estaOcupado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return carro != null;
     }
 
-    @Override
     public boolean isEhCruzamento() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return ehCruzamento;
     }
 
-    @Override
     public void setEhCruzamento(boolean ehCruzamento) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.ehCruzamento = ehCruzamento;
     }
 
     @Override
-    public boolean spawnarCarroEstrada(Carro carro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String toString() {
+        return "L=" + linha + "C=" + coluna + "Ca=" + carro + "I=" + item;
     }
-
-    @Override
-    public boolean reservar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public synchronized boolean reservar(){
+        
+        try {
+            this.wait();
+            this.reservou = true;
+        } catch (Exception ex) {
+            Logger.getLogger(EstradaSemáforo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return reservou;
+        
     }
-
-    @Override
-    public void liberar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean addCarroCruzamento(Carro carro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public synchronized void liberar(){
+        this.notify();
+        
+      this.reservou = false;
     }
 
 }

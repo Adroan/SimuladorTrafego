@@ -17,7 +17,7 @@ public class Matriz {
 
     private Matriz() {
     }
-    ;
+    
     
     private static Matriz instance;
 
@@ -32,6 +32,11 @@ public class Matriz {
     public Estrada[][] getMatriz() {
         return matriz;
     }
+
+    public void setMatriz(Estrada[][] matriz) {
+        this.matriz = matriz;
+    }
+    
 
     public int getLinha() {
         return linha;
