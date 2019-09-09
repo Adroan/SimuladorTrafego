@@ -181,7 +181,8 @@ public class EstradaSemáforo implements Estrada  {
         boolean reservou = false;
         try {
             livre.acquire();
-            reservou = mutex.tryAcquire(500,TimeUnit.MILLISECONDS);
+            mutex.acquire();
+            reservou = true;
         } catch (InterruptedException ex) {
             Logger.getLogger(EstradaSemáforo.class.getName()).log(Level.SEVERE, null, ex);
         }

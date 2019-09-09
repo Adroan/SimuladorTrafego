@@ -11,4 +11,8 @@ package observer;
  */
 public interface Observer {
     void notificarEstradaAlterada();
+
+    public void notificarSimulacaoEncerrada();
+
+
 }

@@ -227,18 +227,30 @@ public class SimuladorTrafego extends JFrame implements ActionListener, Observer
     }
 
     public void encerrarSimulacao() {
-        jbIniciar.setEnabled(true);
         jbEncerrar.setEnabled(false);
-        jrbMonitor.setEnabled(true);
-        jrbSemaforo.setEnabled(true);
-        jtfQtdCarros.setEnabled(true);
-        jtfIntervaloInsercao.setEnabled(true);
+        gerenciador.encerrarSimulacao();
     }
 
     @Override
     public void notificarEstradaAlterada() {
         repaint();
     }
+
+    @Override
+    public void notificarSimulacaoEncerrada() {
+        JOptionPane.showMessageDialog(panelOpcoes, "Simulacao Encerrada\n"
+                                                + "Quantidade de carros solicitados: " + gerenciador.getQuantidadeDeCarros() + "\n"
+                                                + "Quantidade de carros criados: " + gerenciador.getCarrosSpawnados());
+        jbIniciar.setEnabled(true);       
+        jrbMonitor.setEnabled(true);
+        jrbSemaforo.setEnabled(true);
+        jtfQtdCarros.setEnabled(true);
+        jtfQtdCarros.setText("");
+        jtfIntervaloInsercao.setEnabled(true);
+        jtfIntervaloInsercao.setText("");
+    }
+
+
 
     class EstradaTableModel extends AbstractTableModel {
 

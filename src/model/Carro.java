@@ -107,6 +107,8 @@ public class Carro extends Thread {
         }catch(ArrayIndexOutOfBoundsException ex){
             matriz.getValorMatriz(this.linha, this.coluna).retirarCarroEstrada();
             this.vivo = false;
+            Gerenciador ger = Gerenciador.getInstance();
+            ger.verificarFim();
         }
     }
 
@@ -221,7 +223,7 @@ public class Carro extends Thread {
                     if(selecionada.getItem() != 0){
                         atravessarCruzamentoEsquerda(3); //3 = numero de casas que vai andar
                     }
-                }else if(selecionada.getItem() == estradas.get(0).getItem()){
+                }else if(selecionada.getItem() == estradas.get(1).getItem()){
                     if(selecionada.getItem() != 0){
                     atravessarCruzamentoCima(2);
                     }
@@ -285,14 +287,18 @@ public class Carro extends Thread {
         List<Estrada> estradasParaMover = new ArrayList<>();
         switch(qtdCasas){
             case 1: 
-                estradasParaMover.add(matriz.getValorMatriz(linha+1, coluna)); break;
+                estradasParaMover.add(matriz.getValorMatriz(linha+1, coluna));
+                estradasParaMover.add(matriz.getValorMatriz(linha+1, coluna-1)); break;
             case 2:
                 estradasParaMover.add(matriz.getValorMatriz(linha, coluna-1));
-                estradasParaMover.add(matriz.getValorMatriz(linha, coluna-2)); break;
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna-2));
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna-3)); break;
+
             case 3:
                 estradasParaMover.add(matriz.getValorMatriz(linha-1, coluna));
                 estradasParaMover.add(matriz.getValorMatriz(linha-2, coluna));
-                estradasParaMover.add(matriz.getValorMatriz(linha-2, coluna-1)); break;                
+                estradasParaMover.add(matriz.getValorMatriz(linha-2, coluna-1));
+                estradasParaMover.add(matriz.getValorMatriz(linha-2, coluna-2)); break;                
         }
         boolean atravessou = false;
         while(!atravessou){
@@ -310,14 +316,16 @@ public class Carro extends Thread {
                         estradaRemover.liberar();
                     }
                     try {
-                        sleep((long) velocidade);
+                        sleep((long) velocidade * 2);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break;
+                }else{
+                    estradasReservadas.add(estrada);
+                    reservou = false;
                 }
-                estradasReservadas.add(estrada);
-                reservou = false;
+                
             }
             if (estradasReservadas.size() == estradasParaMover.size()) {
                 for (Estrada estradaAdicionar : estradasReservadas) {
@@ -331,7 +339,6 @@ public class Carro extends Thread {
                     ger.notificarEstradaAlterada();
                 }
             }
-           matriz.getValorMatriz(estradasReservadas.get(estradasReservadas.size()-1).getLinha(), estradasReservadas.get(estradasReservadas.size()-1).getColuna()-1).addCarroCruzamento(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
            atravessou = true;
         }
     }
@@ -340,14 +347,17 @@ public class Carro extends Thread {
         List<Estrada> estradasParaMover = new ArrayList<>();
         switch(qtdCasas){
             case 1: 
+                estradasParaMover.add(matriz.getValorMatriz(linha-1, coluna));
                 estradasParaMover.add(matriz.getValorMatriz(linha-1, coluna+1)); break;
             case 2:
                 estradasParaMover.add(matriz.getValorMatriz(linha, coluna+1));
-                estradasParaMover.add(matriz.getValorMatriz(linha, coluna+2)); break;
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna+2));
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna+3)); break;
             case 3:
                 estradasParaMover.add(matriz.getValorMatriz(linha+1, coluna));
                 estradasParaMover.add(matriz.getValorMatriz(linha+2, coluna));
-                estradasParaMover.add(matriz.getValorMatriz(linha+2, coluna+1)); break;                
+                estradasParaMover.add(matriz.getValorMatriz(linha+2, coluna+1));
+                estradasParaMover.add(matriz.getValorMatriz(linha+2, coluna+2)); break;
         }
         boolean atravessou = false;
         while(!atravessou){
@@ -365,14 +375,16 @@ public class Carro extends Thread {
                         estradaRemover.liberar();
                     }
                     try {
-                        sleep((long) velocidade);
+                        sleep((long) velocidade * 2);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break;
+                }else{
+                    estradasReservadas.add(estrada);
+                    reservou = false;
                 }
-                estradasReservadas.add(estrada);
-                reservou = false;
+                
             }
             if (estradasReservadas.size() == estradasParaMover.size()) {
                 for (Estrada estradaAdicionar : estradasReservadas) {
@@ -386,7 +398,6 @@ public class Carro extends Thread {
                     ger.notificarEstradaAlterada();
                 }
             }
-           matriz.getValorMatriz(estradasReservadas.get(estradasReservadas.size()-1).getLinha(), estradasReservadas.get(estradasReservadas.size()-1).getColuna()+1).addCarroCruzamento(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
            atravessou = true;
         }
     }
@@ -395,14 +406,17 @@ public class Carro extends Thread {
         List<Estrada> estradasParaMover = new ArrayList<>();
         switch(qtdCasas){
             case 1: 
-                estradasParaMover.add(matriz.getValorMatriz(linha, coluna+1)); break;
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna+1)); 
+                estradasParaMover.add(matriz.getValorMatriz(linha+1, coluna+1)); break;
             case 2:
                 estradasParaMover.add(matriz.getValorMatriz(linha+1, coluna));
-                estradasParaMover.add(matriz.getValorMatriz(linha+2, coluna)); break;
+                estradasParaMover.add(matriz.getValorMatriz(linha+2, coluna));
+                estradasParaMover.add(matriz.getValorMatriz(linha+3, coluna)); break;
             case 3:
                 estradasParaMover.add(matriz.getValorMatriz(linha, coluna-1));
                 estradasParaMover.add(matriz.getValorMatriz(linha, coluna-2));
-                estradasParaMover.add(matriz.getValorMatriz(linha+1, coluna-2)); break;                
+                estradasParaMover.add(matriz.getValorMatriz(linha+1, coluna-2));
+                estradasParaMover.add(matriz.getValorMatriz(linha+2, coluna-2)); break;
         }
         boolean atravessou = false;
         while(!atravessou){
@@ -420,14 +434,16 @@ public class Carro extends Thread {
                         estradaRemover.liberar();
                     }
                     try {
-                        sleep((long) velocidade);
+                        sleep((long) velocidade * 2);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break;
+                }else{
+                    estradasReservadas.add(estrada);
+                    reservou = false;
                 }
-                estradasReservadas.add(estrada);
-                reservou = false;
+                
             }
             if (estradasReservadas.size() == estradasParaMover.size()) {
                 for (Estrada estradaAdicionar : estradasReservadas) {
@@ -441,7 +457,6 @@ public class Carro extends Thread {
                     ger.notificarEstradaAlterada();
                 }
             }
-           matriz.getValorMatriz(estradasReservadas.get(estradasReservadas.size()-1).getLinha()+1, estradasReservadas.get(estradasReservadas.size()-1).getColuna()).addCarroCruzamento(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
            atravessou = true;
         }
     }
@@ -450,14 +465,17 @@ public class Carro extends Thread {
         List<Estrada> estradasParaMover = new ArrayList<>();
         switch(qtdCasas){
             case 1: 
-                estradasParaMover.add(matriz.getValorMatriz(linha, coluna-1)); break;
+                estradasParaMover.add(matriz.getValorMatriz(linha, coluna-1)); 
+                estradasParaMover.add(matriz.getValorMatriz(linha-1, coluna-1)); break;
             case 2:
                 estradasParaMover.add(matriz.getValorMatriz(linha-1, coluna));
-                estradasParaMover.add(matriz.getValorMatriz(linha-2, coluna)); break;
+                estradasParaMover.add(matriz.getValorMatriz(linha-2, coluna)); 
+                estradasParaMover.add(matriz.getValorMatriz(linha-3, coluna)); break;
             case 3:
                 estradasParaMover.add(matriz.getValorMatriz(linha, coluna+1));
                 estradasParaMover.add(matriz.getValorMatriz(linha, coluna+2));
-                estradasParaMover.add(matriz.getValorMatriz(linha-1, coluna+2)); break;                
+                estradasParaMover.add(matriz.getValorMatriz(linha-1, coluna+2)); 
+                estradasParaMover.add(matriz.getValorMatriz(linha-2, coluna+2)); break;                
         }
         boolean atravessou = false;
         while(!atravessou){
@@ -475,14 +493,16 @@ public class Carro extends Thread {
                         estradaRemover.liberar();
                     }
                     try {
-                        sleep((long) velocidade);
+                        sleep((long) velocidade * 2);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Carro.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break;
+                }else{
+                    estradasReservadas.add(estrada);
+                    reservou = false;
                 }
-                estradasReservadas.add(estrada);
-                reservou = false;
+                
             }
             if (estradasReservadas.size() == estradasParaMover.size()) {
                 for (Estrada estradaAdicionar : estradasReservadas) {
@@ -496,7 +516,6 @@ public class Carro extends Thread {
                     ger.notificarEstradaAlterada();
                 }
             }
-           matriz.getValorMatriz(estradasReservadas.get(estradasReservadas.size()-1).getLinha()-1, estradasReservadas.get(estradasReservadas.size()-1).getColuna()).addCarroCruzamento(matriz.getValorMatriz(linha, coluna).retirarCarroEstrada());
            atravessou = true;
         }
     }
@@ -512,6 +531,8 @@ public class Carro extends Thread {
         }           
         }
         spawnou = true;
+        Gerenciador ger = Gerenciador.getInstance();
+        ger.spawnarCarros();
     }
 
 }
