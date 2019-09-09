@@ -285,7 +285,6 @@ public class Carro extends Thread {
     }
     
     private void atravessarCruzamentoEsquerda(int qtdCasas){
-        System.out.println("Carro " + this.nome + "tentou ir pra esquerda");
         List<Estrada> estradasParaMover = new ArrayList<>();
         switch(qtdCasas){
             case 1: 
@@ -347,7 +346,6 @@ public class Carro extends Thread {
     }
     
     private void atravessarCruzamentoDireita(int qtdCasas){
-        System.out.println("Carro " + this.nome + "tentou ir pra direita");
         List<Estrada> estradasParaMover = new ArrayList<>();
         switch(qtdCasas){
             case 1: 
@@ -407,7 +405,6 @@ public class Carro extends Thread {
     }
     
     private void atravessarCruzamentoBaixo(int qtdCasas){
-        System.out.println("Carro " + this.nome + "tentou ir pra baixo");
         List<Estrada> estradasParaMover = new ArrayList<>();
         switch(qtdCasas){
             case 1: 
@@ -467,7 +464,6 @@ public class Carro extends Thread {
     }
     
     private void atravessarCruzamentoCima(int qtdCasas){
-        System.out.println("Carro " + this.nome + " tentou ir pra cima");
         List<Estrada> estradasParaMover = new ArrayList<>();
         switch(qtdCasas){
             case 1: 

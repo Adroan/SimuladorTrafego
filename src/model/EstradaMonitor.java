@@ -43,9 +43,7 @@ public class EstradaMonitor implements Estrada {
     
     public synchronized boolean addCarroEstrada(Carro carro) {
         boolean adicionou  = false;
-        try {
-            
-          
+        try {                     
             if(!estaOcupado()){
             this.imagem = new ImageIcon("assets/" + carro.getNome()+imagemBase.replace("assets/", ""));
             carro.setColuna(this.coluna);
@@ -64,14 +62,12 @@ public class EstradaMonitor implements Estrada {
     public synchronized boolean addCarroCruzamento(Carro carro) {
         boolean adicionou  = false;
         try {
-            if(!estaOcupado()){
             this.imagem = new ImageIcon("assets/" + carro.getNome()+imagemBase.replace("assets/", ""));
             carro.setColuna(this.coluna);
             carro.setLinha(this.linha);
             carro.setItemPosicao(this.item);
             this.carro = carro;
-            adicionou = true;
-            }
+            adicionou = true;            
         } catch (Exception e) {
             System.out.println("Semaforo mutex ou livre interrompido, abortado");
             e.printStackTrace();
@@ -160,20 +156,15 @@ public class EstradaMonitor implements Estrada {
     }
     
     public synchronized boolean reservar(){
-        
-        try {
-            this.wait();
-            this.reservou = true;
-        } catch (Exception ex) {
-            Logger.getLogger(EstradaSemáforo.class.getName()).log(Level.SEVERE, null, ex);
+        System.out.println("Tentou reservar");
+        if(!estaOcupado()){
+            this.carro = new Carro(linha, coluna, item, linha, coluna, linha);
+            return true;
         }
-        return reservou;
-        
+        return false;                     
     }
     public synchronized void liberar(){
-        this.notify();
-        
-      this.reservou = false;
+        carro = null;
     }
 
 }
