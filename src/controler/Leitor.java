@@ -65,7 +65,7 @@ public class Leitor {
                 } else if (valor != 0) {
                     matriz.setValorMatriz(i, j, new EstradaMonitor(i, j, valor, null, false, "assets/estrada" + valor + ".png"));
                 } else {
-                    matriz.setValorMatriz(i, j, new EstradaMonitor(i, j, valor, null, false, "assets/grama.png"));
+                    matriz.setValorMatriz(i, j, new EstradaMonitor(i, j, valor, null, false, "assets/gramaOutono.png"));
                 }
                 try {
                     if (matriz.getValorMatriz(i, j).getItem() == 1 && matriz.getValorMatriz(i, j - 1).getItem() == 2 || matriz.getValorMatriz(i, j).getItem() == 2 && matriz.getValorMatriz(i - 1, j).getItem() == 3) {
