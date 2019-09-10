@@ -7,7 +7,6 @@ package view;
 
 import controler.Gerenciador;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -243,6 +242,7 @@ public class SimuladorTrafego extends JFrame implements ActionListener, Observer
         jrbMonitor.setEnabled(true);
         jrbSemaforo.setEnabled(true);
         jtfQtdCarros.setEnabled(true);
+        jbEncerrar.setEnabled(false);
         jtfQtdCarros.setText("");
         jtfIntervaloInsercao.setEnabled(true);
         jtfIntervaloInsercao.setText("");

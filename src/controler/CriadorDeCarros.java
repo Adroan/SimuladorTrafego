@@ -176,6 +176,6 @@ public class CriadorDeCarros implements Buffer {
     }
 
     private double geradorVelocidade() {
-        return 250 + (rand.nextDouble() * (1000 - 250));
+        return 50 + (rand.nextDouble() * (250 - 50));
     }
 }
