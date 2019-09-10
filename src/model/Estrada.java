@@ -13,37 +13,73 @@ import javax.swing.ImageIcon;
  * @since 10/09/2019
  * @version 1.0
  */
-public interface Estrada {
+public class Estrada {
 
-    boolean addCarroEstrada(Carro carro);
-    
-    boolean spawnarCarroEstrada(Carro carro);
-    
-    boolean addCarroCruzamento(Carro carro);
-    
-    Carro retirarCarroEstrada();
+    public boolean addCarroEstrada(Carro carro) {
+        return false;
+    }
 
-    int getLinha();
+    public boolean spawnarCarroEstrada(Carro carro) {
+        return false;
+    }
 
-    int getColuna();
+    public boolean addCarroCruzamento(Carro carro) {
+        return false;
+    }
 
-    int getItem();
+    public Carro retirarCarroEstrada() {
+        return null;
+    }
 
-    ImageIcon getImagem();
+    public int getLinha() {
+        return 0;
+    }
 
-    void setImagem(ImageIcon imagem);
+    public int getColuna() {
+        return 0;
+    }
 
-    Carro getCarro();
+    public int getItem() {
+        return 0;
+    }
 
-    boolean estaOcupado();
+    public ImageIcon getImagem() {
+        return null;
+    }
 
-    boolean isEhCruzamento();
-    
-    void setImagemBase(String imagem);
+    public void setImagem(ImageIcon imagem) {
+    }
 
-    void setEhCruzamento(boolean ehCruzamento);
-    
-    public boolean reservar();
-    
-    public void liberar();
+    public Carro getCarro() {
+        return null;
+    }
+
+    public boolean estaOcupado() {
+        return false;
+    }
+
+    public boolean isEhCruzamento() {
+        return false;
+    }
+
+    public void setImagemBase(String imagem) {
+    }
+
+    public void setEhCruzamento(boolean ehCruzamento) {
+    }
+
+    public boolean reservar() {
+        return false;
+    }
+
+    public void liberar() {
+    }
+
+    public Estrada estradaFactory(int modo, int linha, int coluna, int item, Carro carro, boolean ehCruzamento, String imagem) {
+        if (modo == 1) {
+            return new EstradaSemaforo(linha, coluna, item, carro, ehCruzamento, imagem);
+        } else {
+            return new EstradaMonitor(linha, coluna, item, carro, ehCruzamento, imagem);
+        }
+    }
 }

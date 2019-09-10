@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
  * @since 10/09/2019
  * @version 1.0
  */
-public class EstradaMonitor implements Estrada {
+public class EstradaMonitor extends Estrada {
     private String imagemBase;
     private int linha;
     private int coluna;
@@ -69,7 +69,7 @@ public class EstradaMonitor implements Estrada {
         return adicionou;
     }
     
-    @Override
+  
     public boolean spawnarCarroEstrada(Carro carro){
         boolean adicionou  = false;        
             try {

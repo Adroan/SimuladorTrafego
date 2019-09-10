@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
  * @since 10/09/2019
  * @version 1.0
  */
-public class EstradaSemaforo implements Estrada  {
+public class EstradaSemaforo extends Estrada  {
     private String imagemBase;
     private int linha;
     private int coluna;
