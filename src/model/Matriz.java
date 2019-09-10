@@ -7,25 +7,23 @@ package model;
 
 /**
  *
- * @author Adroan
+ * @author Adroan Covari Heinen , Vinicius Tome Vieira
+ * @since 10/09/2019
+ * @version 1.0
  */
 public class Matriz {
-
     private int linha;
     private int coluna;
     private Estrada[][] matriz;
-
+    private static Matriz instance;
+    
     private Matriz() {
     }
-    
-    
-    private static Matriz instance;
 
     public synchronized static Matriz getInstance() {
         if (instance == null) {
             instance = new Matriz();
         }
-
         return instance;
     }
 
@@ -35,8 +33,7 @@ public class Matriz {
 
     public void setMatriz(Estrada[][] matriz) {
         this.matriz = matriz;
-    }
-    
+    }  
 
     public int getLinha() {
         return linha;
@@ -65,5 +62,4 @@ public class Matriz {
     public void criarMatriz(int linha, int coluna) {
         this.matriz = new Estrada[linha][coluna];
     }
-
 }

@@ -6,15 +6,13 @@ package model;
  * and open the template in the editor.
  */
 
-
-import java.util.concurrent.Semaphore;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
  *
- * @author Adroan
+ * @author Adroan Covari Heinen , Vinicius Tome Vieira
+ * @since 10/09/2019
+ * @version 1.0
  */
 public class EstradaMonitor implements Estrada {
     private String imagemBase;
@@ -37,10 +35,7 @@ public class EstradaMonitor implements Estrada {
         this.imagemBase = imagem;
     }
 
-    
-    
-
-    
+    @Override
     public synchronized boolean addCarroEstrada(Carro carro) {
         boolean adicionou  = false;
         try {                     
@@ -53,12 +48,12 @@ public class EstradaMonitor implements Estrada {
             adicionou = true;
             }
         } catch (Exception e) {
-            System.out.println("Monitor interrompido, abortado");
             e.printStackTrace();
         } 
         return adicionou;
     }
     
+    @Override
     public synchronized boolean addCarroCruzamento(Carro carro) {
         boolean adicionou  = false;
         try {
@@ -69,7 +64,6 @@ public class EstradaMonitor implements Estrada {
             this.carro = carro;
             adicionou = true;            
         } catch (Exception e) {
-            System.out.println("Semaforo mutex ou livre interrompido, abortado");
             e.printStackTrace();
         } 
         return adicionou;
@@ -91,65 +85,71 @@ public class EstradaMonitor implements Estrada {
                 }
            
         } catch (InterruptedException e) {
-            System.out.println("Semaforo mutex ou livre interrompido, abortado");
             e.printStackTrace();
         }
             return adicionou;
         }
     
-
-
+    @Override
     public synchronized Carro retirarCarroEstrada() {
         Carro aux = null;
-        try {
-            
+        try {            
             aux = carro;
             this.carro = null;
             this.imagem = new ImageIcon(imagemBase);
         } catch (Exception e) {
-            System.out.println("Semaforo mutex ou livre interrompidos, abortado");
             e.printStackTrace();
             return null;
         }
         return aux;
     }
 
+    @Override
     public  int getLinha(){
         return linha;
     }
 
+    @Override
     public int getColuna() {
         return coluna;
     }
 
+    @Override
     public int getItem() {
         return item;
     }
 
+    @Override
     public ImageIcon getImagem() {
         return imagem;
     }
 
+    @Override
     public void setImagem(ImageIcon imagem) {
         this.imagem = imagem;
     }
 
+    @Override
     public Carro getCarro() {
         return carro;
     }
 
+    @Override
     public boolean estaOcupado() {
         return carro != null;
     }
 
+    @Override
     public boolean isEhCruzamento() {
         return ehCruzamento;
     }
 
+    @Override
     public void setEhCruzamento(boolean ehCruzamento) {
         this.ehCruzamento = ehCruzamento;
     }
 
+    @Override
     public void setImagemBase(String imagemBase) {
         this.imagemBase = imagemBase;
     }
@@ -160,16 +160,17 @@ public class EstradaMonitor implements Estrada {
         return "L=" + linha + "C=" + coluna + "Ca=" + carro + "I=" + item;
     }
     
+    @Override
     public synchronized boolean reservar(){
-        System.out.println("Tentou reservar");
         if(!estaOcupado()){
             this.carro = new Carro(linha, coluna, item, linha, coluna, linha);
             return true;
         }
         return false;                     
     }
+    
+    @Override
     public synchronized void liberar(){
         carro = null;
     }
-
 }

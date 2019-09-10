@@ -7,12 +7,11 @@ package observer;
 
 /**
  *
- * @author Jogos
+ * @author Adroan Covari Heinen , Vinicius Tome Vieira
+ * @since 10/09/2019
+ * @version 1.0
  */
 public interface Observer {
     void notificarEstradaAlterada();
-
     public void notificarSimulacaoEncerrada();
-
-
 }

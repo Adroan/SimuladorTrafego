@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -21,7 +20,9 @@ import observer.Observer;
 
 /**
  *
- * @author Adroan
+ * @author Adroan Covari Heinen , Vinicius Tome Vieira
+ * @since 10/09/2019
+ * @version 1.0
  */
 public class Gerenciador {
 
@@ -29,19 +30,24 @@ public class Gerenciador {
     private static Gerenciador instance;
     private Leitor leitor;
     private File arquivo;
-    private boolean emAndamento = true;
-    private int carrosSpawnados = 0;
+    private boolean emAndamento;
+    private int carrosSpawnados;
     private int quantidadeDeCarros;
-    private boolean terminou = false;
+    private boolean terminou;
     private double intervaloInsercao;
     private int modo;
+    private int carrosMortos;
     private String[] tiposEstrada = {"Exemplo 1", "Exemplo 2", "Exemplo3"};
-    private List<Observer> observadores = new ArrayList<>();
+    private List<Observer> observadores;
     private ExecutorService executor;
-    private int carrosMortos = 0;
+
 
     private Gerenciador() {
          executor = Executors.newCachedThreadPool();
+         terminou = false;
+         emAndamento = true;
+         carrosSpawnados = 0;
+         observadores = new ArrayList<>();        
     }
 
     public void addObservador(Observer obs) {
@@ -148,6 +154,4 @@ public class Gerenciador {
     public int getQuantidadeDeCarros() {
         return quantidadeDeCarros;
     }
-
 }
-

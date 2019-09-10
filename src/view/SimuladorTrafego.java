@@ -34,7 +34,9 @@ import observer.Observer;
 
 /**
  *
- * @author vinny
+ * @author Adroan Covari Heinen , Vinicius Tome Vieira
+ * @since 10/09/2019
+ * @version 1.0
  */
 public class SimuladorTrafego extends JFrame implements ActionListener, Observer {
 
@@ -81,7 +83,6 @@ public class SimuladorTrafego extends JFrame implements ActionListener, Observer
         gerenciador.lerMatriz(1);
         gerenciador.addObservador(this);
         initComponents();
-
     }
 
     public static void main(String[] args) {
@@ -167,9 +168,7 @@ public class SimuladorTrafego extends JFrame implements ActionListener, Observer
         panelPrincipal.setLayout(new FlowLayout(FlowLayout.CENTER));
         panelPrincipal.add(estrada);
 
-        //add(panelEsquerda,BorderLayout.WEST);
         add(panelPrincipal, BorderLayout.CENTER);
-        //add(panelDireita,BorderLayout.EAST);
 
         //Adicionando eventos
         jbIniciar.addActionListener(this);
@@ -193,10 +192,9 @@ public class SimuladorTrafego extends JFrame implements ActionListener, Observer
                             intervalo = intervalo / 0;
                         }
                     } catch (Exception exe) {
-                        JOptionPane.showMessageDialog(rootPane, "Intervalo invÃ¡lido");
+                        JOptionPane.showMessageDialog(rootPane, "Intervalo invalido");
                         entrouCatch = true;
                     }
-
                 }
                 if (!entrouCatch) {
                     iniciarSimulacao();
@@ -209,13 +207,12 @@ public class SimuladorTrafego extends JFrame implements ActionListener, Observer
                 gerenciador.iniciarSimulacao(qtdCarro, intervalo, modo);
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(rootPane, "Quantidade de carros invÃ¡lida");
+                JOptionPane.showMessageDialog(rootPane, "Quantidade de carros invalida");
             }
         }
         if (e.getSource() == jbEncerrar) {
             encerrarSimulacao();
         }
-
     }
 
     public void iniciarSimulacao() {
@@ -292,6 +289,5 @@ public class SimuladorTrafego extends JFrame implements ActionListener, Observer
 
             return this;
         }
-
     }
 }

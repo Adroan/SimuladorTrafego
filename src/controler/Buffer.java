@@ -9,7 +9,9 @@ import model.Carro;
 
 /**
  *
- * @author Adroan
+ * @author Adroan Covari Heinen , Vinicius Tome Vieira
+ * @since 10/09/2019
+ * @version 1.0
  */
 public interface Buffer {
 

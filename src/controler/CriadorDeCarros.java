@@ -14,16 +14,18 @@ import model.Matriz;
 
 /**
  *
- * @author Adroan
+ * @author Adroan Covari Heinen , Vinicius Tome Vieira
+ * @since 10/09/2019
+ * @version 1.0
  */
 public class CriadorDeCarros implements Buffer {
 
-    Matriz matriz = Matriz.getInstance();
+    Matriz matriz;
     private Carro[] carros;
-    private int quantidade = 0;
-    private int inicio = 0;
-    private int fim = 0;
-    private Random rand = new Random();
+    private int quantidade;
+    private int inicio;
+    private int fim;
+    private Random rand;
 
     private Semaphore mutex;
     private Semaphore cheio;
@@ -34,6 +36,11 @@ public class CriadorDeCarros implements Buffer {
         cheio = new Semaphore(0);
         livre = new Semaphore(capacidade);
         mutex = new Semaphore(1);
+        quantidade = 0;
+        inicio = 0;
+        fim = 0;
+        rand = new Random();
+        matriz = Matriz.getInstance();
     }
 
     @Override
@@ -61,7 +68,6 @@ public class CriadorDeCarros implements Buffer {
     public Carro removerCarro() throws Exception {
         Carro carro = null;
         try {
-
             cheio.acquire();
             mutex.acquire();
             if (quantidade == 0) {
@@ -83,7 +89,6 @@ public class CriadorDeCarros implements Buffer {
     }
 
     public boolean spawn(Carro carro) throws Exception {
-
         int orientacao = rand.nextInt(4);
         boolean adicionou = false;
         switch (orientacao) {
@@ -105,7 +110,6 @@ public class CriadorDeCarros implements Buffer {
         return adicionou;
     }
 
-//
     private boolean nascerSul(Carro carro) throws Exception {
         List<Integer> posicoes = new ArrayList<>();
         for (int i = 0; i < matriz.getColuna(); i++) {

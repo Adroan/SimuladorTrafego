@@ -9,13 +9,18 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Adroan
+ * @author Adroan Covari Heinen , Vinicius Tome Vieira
+ * @since 10/09/2019
+ * @version 1.0
  */
 public interface Estrada {
 
     boolean addCarroEstrada(Carro carro);
+    
     boolean spawnarCarroEstrada(Carro carro);
+    
     boolean addCarroCruzamento(Carro carro);
+    
     Carro retirarCarroEstrada();
 
     int getLinha();
@@ -37,6 +42,8 @@ public interface Estrada {
     void setImagemBase(String imagem);
 
     void setEhCruzamento(boolean ehCruzamento);
+    
     public boolean reservar();
+    
     public void liberar();
 }
