@@ -120,6 +120,12 @@ public class Gerenciador {
         }
     }
     
+    public void reset(){
+        carrosSpawnados = 0;
+        carrosMortos = 0;
+        emAndamento = true;
+    }
+    
     public void verificarFim() {
         carrosMortos++;
         if ((carrosMortos == carrosSpawnados)) {

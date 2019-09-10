@@ -205,6 +205,7 @@ public class SimuladorTrafego extends JFrame implements ActionListener, Observer
                 if (jrbMonitor.isSelected()) {
                     modo = 2;
                 }
+                gerenciador.reset();
                 gerenciador.iniciarSimulacao(qtdCarro, intervalo, modo);
 
             } catch (Exception ex) {
